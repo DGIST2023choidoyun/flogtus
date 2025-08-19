@@ -1,0 +1,91 @@
+[gd_scene load_steps=11 format=3 uid="uid://j0ic2piyq7ay"]
+
+[ext_resource type="Script" uid="uid://b6v7bg41x50l0" path="res://Scripts/frog.gd" id="1_vwpa2"]
+[ext_resource type="Texture2D" uid="uid://bgpmja0k7ppiw" path="res://Textures/frog_jump.png" id="2_kuh1s"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ii6tf"]
+atlas = ExtResource("2_kuh1s")
+region = Rect2(0, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7uek1"]
+atlas = ExtResource("2_kuh1s")
+region = Rect2(18, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fo7tm"]
+atlas = ExtResource("2_kuh1s")
+region = Rect2(36, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_506uw"]
+atlas = ExtResource("2_kuh1s")
+region = Rect2(54, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jkl5b"]
+atlas = ExtResource("2_kuh1s")
+region = Rect2(72, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_my3nw"]
+atlas = ExtResource("2_kuh1s")
+region = Rect2(90, 0, 18, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vwpa2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ii6tf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7uek1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fo7tm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_506uw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jkl5b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_my3nw")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iu3x8"]
+radius = 4.0
+
+[node name="Frog" type="Area2D"]
+script = ExtResource("1_vwpa2")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+z_index = 10
+sprite_frames = SubResource("SpriteFrames_vwpa2")
+animation = &"jump"
+frame = 3
+frame_progress = 0.812968
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_iu3x8")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-3.57628e-07, -8.9407e-08)
+scale = Vector2(0.9, 0.9)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

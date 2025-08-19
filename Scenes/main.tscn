@@ -1,0 +1,72 @@
+[gd_scene load_steps=9 format=3 uid="uid://bn1m4wpx3mgob"]
+
+[ext_resource type="PackedScene" uid="uid://yrio51fdgr41" path="res://Objects/generator.tscn" id="1_jjgbg"]
+[ext_resource type="Texture2D" uid="uid://dswphblkaqbgs" path="res://Textures/waterfall_0.png" id="2_8gbba"]
+[ext_resource type="PackedScene" uid="uid://j0ic2piyq7ay" path="res://Objects/frog.tscn" id="2_21xkr"]
+[ext_resource type="Texture2D" uid="uid://crag1mdw4j5uw" path="res://Textures/waterfall_1.png" id="3_jjvhh"]
+[ext_resource type="Texture2D" uid="uid://bg61d303m86yj" path="res://Textures/waterfall_2.png" id="4_kry3j"]
+[ext_resource type="Texture2D" uid="uid://c0i2rmvjptu8l" path="res://Textures/waterfall_3.png" id="5_21xkr"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8gbba"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6bp64"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_8gbba")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jjvhh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_kry3j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_21xkr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_kry3j")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[node name="Main" type="Node"]
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="Label" type="Label" parent="UI"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "000"
+
+[node name="Button" type="Button" parent="UI"]
+offset_right = 69.0
+offset_bottom = 19.0
+text = "Gen"
+
+[node name="Generator" parent="." instance=ExtResource("1_jjgbg")]
+
+[node name="CollapseWall" type="RigidBody2D" parent="." groups=["WaterFall"]]
+position = Vector2(0, 440)
+collision_mask = 0
+gravity_scale = 0.0
+can_sleep = false
+freeze = true
+
+[node name="Shape" type="CollisionShape2D" parent="CollapseWall"]
+shape = SubResource("WorldBoundaryShape2D_8gbba")
+
+[node name="Waterfall" type="AnimatedSprite2D" parent="."]
+z_index = 100
+position = Vector2(90, 310)
+sprite_frames = SubResource("SpriteFrames_6bp64")
+autoplay = "default"
+frame_progress = 0.781981
+
+[node name="Frog" parent="." instance=ExtResource("2_21xkr")]
+position = Vector2(84, 97)
+
+[connection signal="button_down" from="UI/Button" to="Generator" method="start_generation"]
