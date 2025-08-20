@@ -6,12 +6,12 @@ var avel: float = 0.0
 
 func _ready() -> void:
 	var size: int = _rand_size()
-	($Shape.shape as CircleShape2D).radius = size - 5 # 약간의 패딩을 줌
+	($Shape.shape as CircleShape2D).radius = size # 약간의 패딩을 줌
 	
 	if randi() & 2:
-		avel = 2
+		avel = 1
 	else:
-		avel = -2
+		avel = -1
 	self.angular_velocity = avel
 	
 	match size:

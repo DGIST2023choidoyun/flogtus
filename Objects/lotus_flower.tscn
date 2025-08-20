@@ -1,14 +1,76 @@
-[gd_scene load_steps=3 format=3 uid="uid://dr7vb264jubp3"]
+[gd_scene load_steps=10 format=3 uid="uid://dr7vb264jubp3"]
 
 [ext_resource type="Script" uid="uid://d265xc0iw2gb4" path="res://scripts/lotus_flower.gd" id="1_4in8w"]
+[ext_resource type="Texture2D" uid="uid://cjsap0xcwdasa" path="res://textures/lotus_flower_small.png" id="2_5eg23"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4in8w"]
+friction = 0.0
+absorbent = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x24fd"]
+atlas = ExtResource("2_5eg23")
+region = Rect2(0, 0, 30, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tqtxb"]
+atlas = ExtResource("2_5eg23")
+region = Rect2(30, 0, 30, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4psx"]
+atlas = ExtResource("2_5eg23")
+region = Rect2(60, 0, 30, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5lo0"]
+atlas = ExtResource("2_5eg23")
+region = Rect2(90, 0, 30, 30)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4in8w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x24fd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tqtxb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4psx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j5lo0")
+}],
+"loop": false,
+"name": &"default",
+"speed": 2.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0svlr"]
-radius = 60.0
+radius = 15.0
 
-[node name="LotusFlower" type="RigidBody2D"]
+[node name="LotusFlower" type="RigidBody2D" groups=["Flower", "Lotus"]]
+collision_mask = 5
+physics_material_override = SubResource("PhysicsMaterial_4in8w")
+gravity_scale = 0.005
+can_sleep = false
+continuous_cd = 2
+contact_monitor = true
+max_contacts_reported = 5
+linear_damp = 0.1
 script = ExtResource("1_4in8w")
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_4in8w")
 
 [node name="Shape" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_0svlr")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-1.19209e-07, -1.19209e-07)
+scale = Vector2(1.3, 1.3)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="frame_changed" from="Sprite" to="." method="_on_sprite_frame_changed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]

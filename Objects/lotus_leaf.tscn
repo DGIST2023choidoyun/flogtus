@@ -4,13 +4,15 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ftiaj"]
 friction = 0.0
+absorbent = true
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ftiaj"]
 radius = 0.01
 
 [node name="LotusLeaf" type="RigidBody2D" groups=["Lotus"]]
+collision_mask = 5
 physics_material_override = SubResource("PhysicsMaterial_ftiaj")
-gravity_scale = 0.01
+gravity_scale = 0.005
 can_sleep = false
 continuous_cd = 2
 contact_monitor = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://j0ic2piyq7ay"]
+[gd_scene load_steps=25 format=3 uid="uid://j0ic2piyq7ay"]
 
 [ext_resource type="Script" uid="uid://b6v7bg41x50l0" path="res://scripts/frog.gd" id="1_vwpa2"]
 [ext_resource type="Texture2D" uid="uid://bgpmja0k7ppiw" path="res://textures/frog_jump.png" id="2_kuh1s"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://brsqh0g7pyh0d" path="res://sounds/jump.wav" id="3_ii6tf"]
 [ext_resource type="AudioStream" uid="uid://5c2a4sqg6a20" path="res://sounds/croak.wav" id="4_7uek1"]
 [ext_resource type="AudioStream" uid="uid://c4nydilulliik" path="res://sounds/splash.wav" id="5_fo7tm"]
+[ext_resource type="Texture2D" uid="uid://beovl7p3p131p" path="res://textures/land_point.png" id="7_1lrn2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fny7c"]
 atlas = ExtResource("2_kuh1s")
@@ -150,7 +151,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iu3x8"]
-radius = 1.0
+radius = 2.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kuh1s"]
 size = Vector2(120, 200)
@@ -163,10 +164,8 @@ script = ExtResource("1_vwpa2")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_vwpa2")
-animation = &"drown"
+animation = &"idle"
 autoplay = "idle"
-frame = 5
-frame_progress = 1.0
 script = ExtResource("3_506uw")
 
 [node name="Shape" type="CollisionShape2D" parent="."]
@@ -198,6 +197,7 @@ bus = &"Effect"
 unique_name_in_owner = true
 stream = ExtResource("4_7uek1")
 volume_db = -3.0
+autoplay = true
 bus = &"Effect"
 
 [node name="SplashSound" type="AudioStreamPlayer2D" parent="."]
@@ -206,7 +206,16 @@ stream = ExtResource("5_fo7tm")
 volume_db = 1.0
 bus = &"Effect"
 
-[connection signal="animation_finished" from="Sprite" to="." method="_on_sprite_animation_finished"]
+[node name="LandPoint" type="Marker2D" parent="."]
+visible = false
+z_index = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="LandPoint"]
+texture_filter = 1
+position = Vector2(0, 5)
+texture = ExtResource("7_1lrn2")
+
 [connection signal="animation_finished" from="Sprite" to="Sprite" method="_on_animation_finished"]
 [connection signal="frame_changed" from="Sprite" to="Sprite" method="_on_frame_changed"]
+[connection signal="landed" from="Sprite" to="." method="land"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

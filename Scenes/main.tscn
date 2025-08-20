@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://bn1m4wpx3mgob"]
+[gd_scene load_steps=12 format=3 uid="uid://bn1m4wpx3mgob"]
 
+[ext_resource type="Script" uid="uid://xb8ryj8o3lqo" path="res://scripts/setup.gd" id="1_85g3d"]
 [ext_resource type="PackedScene" uid="uid://yrio51fdgr41" path="res://objects/generator.tscn" id="1_tipki"]
 [ext_resource type="Texture2D" uid="uid://dswphblkaqbgs" path="res://textures/waterfall_0.png" id="2_85g3d"]
 [ext_resource type="Texture2D" uid="uid://crag1mdw4j5uw" path="res://textures/waterfall_1.png" id="3_choun"]
@@ -35,6 +36,7 @@ animations = [{
 }]
 
 [node name="Main" type="Node"]
+script = ExtResource("1_85g3d")
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 10
@@ -42,7 +44,8 @@ layer = 10
 [node name="Label" type="Label" parent="UI"]
 offset_right = 40.0
 offset_bottom = 23.0
-text = "000"
+text = "0"
+horizontal_alignment = 2
 
 [node name="Button" type="Button" parent="UI"]
 offset_right = 69.0
@@ -54,6 +57,7 @@ text = "Gen"
 
 [node name="CollapseWall" type="RigidBody2D" parent="." groups=["WaterFall"]]
 position = Vector2(0, 440)
+collision_layer = 4
 collision_mask = 0
 gravity_scale = 0.0
 can_sleep = false
@@ -70,7 +74,7 @@ autoplay = "default"
 frame_progress = 0.781981
 
 [node name="Frog" parent="." instance=ExtResource("6_trceg")]
-position = Vector2(90, 283)
+position = Vector2(90, 192)
 
 [node name="WaterfallSound" type="Node2D" parent="."]
 script = ExtResource("7_a8y0u")
