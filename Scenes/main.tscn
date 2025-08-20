@@ -1,11 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://bn1m4wpx3mgob"]
+[gd_scene load_steps=11 format=3 uid="uid://bn1m4wpx3mgob"]
 
-[ext_resource type="PackedScene" uid="uid://yrio51fdgr41" path="res://Objects/generator.tscn" id="1_jjgbg"]
-[ext_resource type="Texture2D" uid="uid://dswphblkaqbgs" path="res://Textures/waterfall_0.png" id="2_8gbba"]
-[ext_resource type="PackedScene" uid="uid://j0ic2piyq7ay" path="res://Objects/frog.tscn" id="2_21xkr"]
-[ext_resource type="Texture2D" uid="uid://crag1mdw4j5uw" path="res://Textures/waterfall_1.png" id="3_jjvhh"]
-[ext_resource type="Texture2D" uid="uid://bg61d303m86yj" path="res://Textures/waterfall_2.png" id="4_kry3j"]
-[ext_resource type="Texture2D" uid="uid://c0i2rmvjptu8l" path="res://Textures/waterfall_3.png" id="5_21xkr"]
+[ext_resource type="PackedScene" uid="uid://yrio51fdgr41" path="res://objects/generator.tscn" id="1_tipki"]
+[ext_resource type="Texture2D" uid="uid://dswphblkaqbgs" path="res://textures/waterfall_0.png" id="2_85g3d"]
+[ext_resource type="Texture2D" uid="uid://crag1mdw4j5uw" path="res://textures/waterfall_1.png" id="3_choun"]
+[ext_resource type="Texture2D" uid="uid://bg61d303m86yj" path="res://textures/waterfall_2.png" id="4_ya4ey"]
+[ext_resource type="Texture2D" uid="uid://c0i2rmvjptu8l" path="res://textures/waterfall_3.png" id="5_eb6dy"]
+[ext_resource type="PackedScene" uid="uid://j0ic2piyq7ay" path="res://objects/frog.tscn" id="6_trceg"]
+[ext_resource type="Script" uid="uid://d2a82e5pgeiaj" path="res://scripts/loop_sound.gd" id="7_a8y0u"]
+[ext_resource type="AudioStream" uid="uid://xu02mja4elkg" path="res://sounds/waterfall.wav" id="8_jkv2x"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8gbba"]
 
@@ -13,19 +15,19 @@
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_8gbba")
+"texture": ExtResource("2_85g3d")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_jjvhh")
+"texture": ExtResource("3_choun")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_kry3j")
+"texture": ExtResource("4_ya4ey")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_21xkr")
+"texture": ExtResource("5_eb6dy")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_kry3j")
+"texture": ExtResource("4_ya4ey")
 }],
 "loop": true,
 "name": &"default",
@@ -45,9 +47,10 @@ text = "000"
 [node name="Button" type="Button" parent="UI"]
 offset_right = 69.0
 offset_bottom = 19.0
+focus_mode = 0
 text = "Gen"
 
-[node name="Generator" parent="." instance=ExtResource("1_jjgbg")]
+[node name="Generator" parent="." instance=ExtResource("1_tipki")]
 
 [node name="CollapseWall" type="RigidBody2D" parent="." groups=["WaterFall"]]
 position = Vector2(0, 440)
@@ -66,7 +69,28 @@ sprite_frames = SubResource("SpriteFrames_6bp64")
 autoplay = "default"
 frame_progress = 0.781981
 
-[node name="Frog" parent="." instance=ExtResource("2_21xkr")]
-position = Vector2(84, 97)
+[node name="Frog" parent="." instance=ExtResource("6_trceg")]
+position = Vector2(90, 283)
+
+[node name="WaterfallSound" type="Node2D" parent="."]
+script = ExtResource("7_a8y0u")
+
+[node name="Player1" type="AudioStreamPlayer2D" parent="WaterfallSound"]
+stream = ExtResource("8_jkv2x")
+volume_db = -11.0
+pitch_scale = 0.5
+autoplay = true
+bus = &"BGM"
+
+[node name="Player2" type="AudioStreamPlayer2D" parent="WaterfallSound"]
+stream = ExtResource("8_jkv2x")
+volume_db = -8.0
+pitch_scale = 0.5
+bus = &"BGM"
+
+[node name="Timer" type="Timer" parent="WaterfallSound"]
+wait_time = 0.3
+autostart = true
 
 [connection signal="button_down" from="UI/Button" to="Generator" method="start_generation"]
+[connection signal="timeout" from="WaterfallSound/Timer" to="WaterfallSound" method="_on_timer_timeout"]

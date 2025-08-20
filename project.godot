@@ -19,7 +19,7 @@ boot_splash/bg_color=Color(0.184314, 0.243137, 0.203922, 1)
 
 [autoload]
 
-Utility="*res://Scripts/util.gd"
+Utility="*res://scripts/util.gd"
 
 [debug]
 
@@ -47,6 +47,7 @@ window/handheld/orientation=1
 [global_group]
 
 WaterFall=""
+Lotus=""
 
 [input]
 
@@ -67,6 +68,7 @@ locale/locale_filter_mode=0
 [layer_names]
 
 2d_physics/layer_1="Lotus"
+2d_physics/layer_2="Frog"
 
 [physics]
 

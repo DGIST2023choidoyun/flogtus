@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cj3epkv6qdvkt"
-path="res://.godot/imported/lotus_leaf_tini.png-8cdc02d9c816ee218a19915251ce3fbf.ctex"
+path="res://.godot/imported/lotus_leaf_tini.png-889aea84a7465a7bcdb9ce5931cec146.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/lotus_leaf_tini.png"
-dest_files=["res://.godot/imported/lotus_leaf_tini.png-8cdc02d9c816ee218a19915251ce3fbf.ctex"]
+source_file="res://textures/lotus_leaf_tini.png"
+dest_files=["res://.godot/imported/lotus_leaf_tini.png-889aea84a7465a7bcdb9ce5931cec146.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dswphblkaqbgs"
-path="res://.godot/imported/waterfall_0.png-9ee45e04e8320185ae49cda62ae7dcd4.ctex"
+path="res://.godot/imported/waterfall_0.png-8fc2b26c2a2950cf18c969df7ee3570c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/waterfall_0.png"
-dest_files=["res://.godot/imported/waterfall_0.png-9ee45e04e8320185ae49cda62ae7dcd4.ctex"]
+source_file="res://textures/waterfall_0.png"
+dest_files=["res://.godot/imported/waterfall_0.png-8fc2b26c2a2950cf18c969df7ee3570c.ctex"]
 
 [params]
 

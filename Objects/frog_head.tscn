@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3ost7kvay4cy"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8klth"]
+
+[node name="FrogHead" type="RigidBody2D"]
+gravity_scale = 0.03
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_8klth")
+autoplay = "default"

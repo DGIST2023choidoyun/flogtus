@@ -16,15 +16,15 @@ func _ready() -> void:
 	
 	match size:
 		SIZE.TINI:
-			$Sprite.texture = load("res://Textures/lotus_leaf_tini.png")
+			$Sprite.texture = load("res://textures/lotus_leaf_tini.png")
 		SIZE.SMALL:
-			$Sprite.texture = load("res://Textures/lotus_leaf_small.png")
+			$Sprite.texture = load("res://textures/lotus_leaf_small.png")
 		SIZE.MEDIUM:
-			$Sprite.texture = load("res://Textures/lotus_leaf_medium.png")
+			$Sprite.texture = load("res://textures/lotus_leaf_medium.png")
 		SIZE.BIG:
-			$Sprite.texture = load("res://Textures/lotus_leaf_big.png")
+			$Sprite.texture = load("res://textures/lotus_leaf_big.png")
 		SIZE.LARGE:
-			$Sprite.texture = load("res://Textures/lotus_leaf_large.png")
+			$Sprite.texture = load("res://textures/lotus_leaf_large.png")
 
 func _rand_size() -> SIZE:
 	randomize()
@@ -43,7 +43,7 @@ func _rand_size() -> SIZE:
 
 
 func _on_body_entered(body: Node) -> void:
-	if body.is_in_group("WaterFall"):
+	if body.is_in_group(&"WaterFall"):
 		queue_free()
 	else:
 		self.angular_velocity = avel
