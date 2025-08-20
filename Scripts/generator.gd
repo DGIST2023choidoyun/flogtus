@@ -4,6 +4,7 @@ var lotus_leaf: PackedScene = preload("res://Objects/lotus_leaf.tscn")
 var lotus_flower: PackedScene = preload("res://Objects/lotus_flower.tscn")
 
 var flow_speed: float = 0.005 # == gravity
+var is_first: bool = true
 
 func _ready() -> void:
 	self.position = Vector2.ZERO
@@ -36,6 +37,12 @@ func generate() -> void:
 	get_tree().root.add_child(pad)
 	pad.position = %SpawnPoint.position
 	pad.float_along_fall()
+	
+	if is_first:
+		var frog: Frog = load("res://objects/frog.tscn").instantiate()
+		pad.add_child(frog)
+		is_first = false
+		
 
 func random_time() -> float:
 	return Utility.rand_normal(0.5, 0.075) * 1.0 + 0.2

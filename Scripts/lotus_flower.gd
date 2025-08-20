@@ -25,13 +25,17 @@ func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 func _on_timer_timeout() -> void:
 	$Sprite.play(&"default")
 
-# 26 -> 20 -> 12 -> 0
 func _on_sprite_frame_changed() -> void:
 	if $Sprite.animation == &"default":
-		match $Sprite.frame:
+		var frame: int = $Sprite.frame
+		match frame:
 			1:
 				($Shape.shape as CircleShape2D).radius = 12
 			2:
 				($Shape.shape as CircleShape2D).radius = 8
-			3:
-				$Shape.hide()
+			
+		if Frog.instance != null and Frog.instance.pad_name == self.name:
+			if frame == 3:
+				Frog.instance.drown()
+			else:
+				Frog.instance.land()

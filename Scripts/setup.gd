@@ -1,4 +1,10 @@
 extends Node
 
 func _ready() -> void:
-	Data.add_listener("score_changed", func(val: int): $UI/Label.text = "{0}".format([val]))
+	Data.add_listener("score_changed", func(val: int): $UI/Score.text = "{0}".format([val]))
+
+func _on_screen_gui_input(event: InputEvent) -> void:
+	if event is InputEventScreenTouch:
+		if not event.pressed:
+			$Generator.start_generation()
+			$UI/Screen.hide()

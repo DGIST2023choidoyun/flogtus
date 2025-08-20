@@ -150,11 +150,12 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_iu3x8"]
-radius = 2.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1lrn2"]
+radius = 3.0
+height = 8.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kuh1s"]
-size = Vector2(120, 200)
+size = Vector2(180, 320)
 
 [node name="Frog" type="Area2D"]
 z_index = 10
@@ -170,7 +171,8 @@ script = ExtResource("3_506uw")
 
 [node name="Shape" type="CollisionShape2D" parent="."]
 position = Vector2(0, 5)
-shape = SubResource("CircleShape2D_iu3x8")
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_1lrn2")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(-3.57628e-07, -8.9407e-08)
@@ -178,13 +180,14 @@ scale = Vector2(0.9, 0.9)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="TouchScreenButton" type="TouchScreenButton" parent="CanvasLayer"]
-position = Vector2(90, 220)
+[node name="TouchControl" type="TouchScreenButton" parent="CanvasLayer"]
+visible = false
+position = Vector2(90, 160)
 shape = SubResource("RectangleShape2D_kuh1s")
 action = "Jump"
 visibility_mode = 1
 
-[node name="Timer" type="Timer" parent="."]
+[node name="ChargeTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
@@ -218,4 +221,5 @@ texture = ExtResource("7_1lrn2")
 [connection signal="animation_finished" from="Sprite" to="Sprite" method="_on_animation_finished"]
 [connection signal="frame_changed" from="Sprite" to="Sprite" method="_on_frame_changed"]
 [connection signal="landed" from="Sprite" to="." method="land"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
