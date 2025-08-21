@@ -10,16 +10,12 @@ func _ready() -> void:
 	else:
 		avel = -1
 	self.angular_velocity = avel
-	
-func _on_body_entered(body: Node) -> void:
-	if body.is_in_group(&"WaterFall"):
-		queue_free()
-	else:
-		self.angular_velocity = avel
-		
+
+func _on_body_entered(_body: Node) -> void:
+	self.angular_velocity = avel
 
 func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
-	$Timer.wait_time = randf() * 7.0 + 3.0
+	$Timer.wait_time = randf() * 7.0 + 3.0 # TODO: Parameterize
 	$Timer.start()
 
 func _on_timer_timeout() -> void:
@@ -33,9 +29,8 @@ func _on_sprite_frame_changed() -> void:
 				($Shape.shape as CircleShape2D).radius = 12
 			2:
 				($Shape.shape as CircleShape2D).radius = 8
-			
-		if Frog.instance != null and Frog.instance.pad_name == self.name:
-			if frame == 3:
-				Frog.instance.drown()
-			else:
-				Frog.instance.land()
+			3:
+				#($Shape.shape as CircleShape2D).radius = 4
+				#self.add_collision_exception_with(Frog.instance)
+				collapse.emit()
+		state_changed.emit()

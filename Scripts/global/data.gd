@@ -12,7 +12,7 @@ func add_listener(signal_name: StringName, callable: Callable) -> void:
 	if has_signal(signal_name):
 		connect(signal_name, callable)
 
-func earn_score(floating: Node2D) -> void:
+func earn_score(floating: Platform) -> void:
 	if floating != null and floating.is_in_group(&"Flower"):
 		score += 2 # 꽃은 2점
 	else:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://j0ic2piyq7ay"]
+[gd_scene load_steps=26 format=3 uid="uid://j0ic2piyq7ay"]
 
 [ext_resource type="Script" uid="uid://b6v7bg41x50l0" path="res://scripts/frog.gd" id="1_vwpa2"]
 [ext_resource type="Texture2D" uid="uid://bgpmja0k7ppiw" path="res://textures/frog_jump.png" id="2_kuh1s"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://5c2a4sqg6a20" path="res://sounds/croak.wav" id="4_7uek1"]
 [ext_resource type="AudioStream" uid="uid://c4nydilulliik" path="res://sounds/splash.wav" id="5_fo7tm"]
 [ext_resource type="Texture2D" uid="uid://beovl7p3p131p" path="res://textures/land_point.png" id="7_1lrn2"]
+[ext_resource type="Script" uid="uid://dnc54nkh3nugd" path="res://scripts/land_point.gd" id="7_giiu1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fny7c"]
 atlas = ExtResource("2_kuh1s")
@@ -162,6 +163,7 @@ z_index = 10
 collision_layer = 2
 monitorable = false
 script = ExtResource("1_vwpa2")
+metadata/_custom_type_script = "uid://b6v7bg41x50l0"
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_vwpa2")
@@ -188,6 +190,7 @@ action = "Jump"
 visibility_mode = 1
 
 [node name="ChargeTimer" type="Timer" parent="."]
+unique_name_in_owner = true
 one_shot = true
 
 [node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
@@ -212,8 +215,10 @@ bus = &"Effect"
 [node name="LandPoint" type="Marker2D" parent="."]
 visible = false
 z_index = 1
+script = ExtResource("7_giiu1")
 
 [node name="Sprite2D" type="Sprite2D" parent="LandPoint"]
+visible = false
 texture_filter = 1
 position = Vector2(0, 5)
 texture = ExtResource("7_1lrn2")
@@ -221,5 +226,4 @@ texture = ExtResource("7_1lrn2")
 [connection signal="animation_finished" from="Sprite" to="Sprite" method="_on_animation_finished"]
 [connection signal="frame_changed" from="Sprite" to="Sprite" method="_on_frame_changed"]
 [connection signal="landed" from="Sprite" to="." method="land"]
-[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="CanvasLayer/TouchControl" method="show"]

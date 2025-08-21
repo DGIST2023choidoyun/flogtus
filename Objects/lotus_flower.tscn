@@ -47,15 +47,17 @@ animations = [{
 radius = 15.0
 
 [node name="LotusFlower" type="RigidBody2D" groups=["Flower", "Lotus"]]
-collision_mask = 5
+collision_mask = 4
 physics_material_override = SubResource("PhysicsMaterial_4in8w")
 gravity_scale = 0.005
 can_sleep = false
 continuous_cd = 2
 contact_monitor = true
 max_contacts_reported = 5
-linear_damp = 0.1
+linear_damp_mode = 1
+linear_damp = 0.2
 script = ExtResource("1_4in8w")
+metadata/_custom_type_script = "uid://b0byvv3tvpa0y"
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_4in8w")

@@ -25,9 +25,11 @@ func _ready() -> void:
 			$Sprite.texture = load("res://textures/lotus_leaf_big.png")
 		SIZE.LARGE:
 			$Sprite.texture = load("res://textures/lotus_leaf_large.png")
+	
+	has_state = false
+	can_collapse = false
 
 func _rand_size() -> SIZE:
-	randomize()
 	var ratio: float = randf()
 	
 	if ratio > 0.70:
@@ -41,10 +43,5 @@ func _rand_size() -> SIZE:
 	else:
 		return SIZE.TINI
 
-
-func _on_body_entered(body: Node) -> void:
-	if body.is_in_group(&"WaterFall"):
-		queue_free()
-	else:
-		self.angular_velocity = avel
-		
+func _on_body_entered(_body: Node) -> void:
+	self.angular_velocity = avel

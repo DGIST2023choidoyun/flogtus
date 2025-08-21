@@ -10,15 +10,17 @@ absorbent = true
 radius = 0.01
 
 [node name="LotusLeaf" type="RigidBody2D" groups=["Lotus"]]
-collision_mask = 5
+collision_mask = 4
 physics_material_override = SubResource("PhysicsMaterial_ftiaj")
 gravity_scale = 0.005
 can_sleep = false
 continuous_cd = 2
 contact_monitor = true
 max_contacts_reported = 5
-linear_damp = 0.1
+linear_damp_mode = 1
+linear_damp = 0.2
 script = ExtResource("1_1e4ig")
+metadata/_custom_type_script = "uid://b0byvv3tvpa0y"
 
 [node name="Sprite" type="Sprite2D" parent="."]
 

@@ -13,9 +13,12 @@ config_version=5
 config/name="Flogtus"
 config/version="0.0.1 beta"
 run/main_scene="uid://bn1m4wpx3mgob"
+config/use_custom_user_dir=true
 config/features=PackedStringArray("4.4")
 run/max_fps=75
 boot_splash/bg_color=Color(0.184314, 0.243137, 0.203922, 1)
+config/icon="uid://cb83vsev3piy2"
+config/windows_native_icon="res://flogtus_icon.ico"
 
 [autoload]
 
@@ -83,6 +86,8 @@ locale/locale_filter_mode=0
 
 [physics]
 
+jolt_physics_3d/collisions/collision_margin_fraction=0.1
+2d/default_gravity=1.0
 2d/default_angular_damp=0.0
 
 [rendering]

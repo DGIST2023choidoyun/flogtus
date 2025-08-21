@@ -1,16 +1,77 @@
-extends Area2D
-class_name Frog
+class_name Frog extends Area2D
+
+enum STATE { NONE = -1, LANDED, JUMPED, DROWNED, CNT }
+var state: STATE = STATE.NONE
 
 const max_dist: float = 100.0
 const charge_full: float = 1.0
 
-var on_floor: bool = true
-#var charging: bool = false
-#var can_jump: bool = false
+const over_air_coef: float = 0.4 # 채공시간 계수
 
-var pad_name: String = ""
+var platform: Platform = null
+
+var is_ready: bool = false
 
 static var instance: Frog = null # singleton
+
+func _state(value: STATE) -> void:
+	match value:
+		STATE.LANDED:
+			'''바닥 체크 후 처리'''
+			if state != STATE.NONE and state != STATE.JUMPED and state != STATE.LANDED:
+				return
+			var platform: Platform = check_floor()
+			if platform == null:
+				drown.call_deferred()
+			else:
+				if self.platform != platform: # 바닥 같으면 처리 안 함
+					var local_pos: Vector2 = platform.to_local(self.global_position)
+					var glob_rot: float = self.global_rotation
+					# TODO
+					self.reparent(platform, false)
+					await get_tree().physics_frame
+					await get_tree().physics_frame
+					self.position = local_pos
+					self.global_rotation = glob_rot
+					
+					if self.platform != null:
+						self.platform.takeoff(self)
+						Data.earn_score(platform)
+					platform.landed(self)
+				
+				
+			self.platform = platform
+		STATE.JUMPED:
+			'''점프 애니메이션 설정'''
+			if state != STATE.LANDED and not is_ready:
+				return
+			var charged: float = charge_full - $ChargeTimer.time_left
+			var pos_tween: Tween = create_tween()
+			var tween_time: float = charged * over_air_coef
+			
+			# 이동
+			pos_tween.tween_property(self, "global_position", $LandPoint.global_position, tween_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			
+			$LandPoint.hide()
+			set_process(false)
+			
+			# 타이머 초기화
+			$ChargeTimer.wait_time = charge_full
+			
+			# 애니메이션 설정
+			$Sprite.jump_animate(1.0 / tween_time)
+		STATE.DROWNED:
+			if state != STATE.LANDED:
+				return
+			self.reparent(get_tree().root)
+			$Sprite.drown_animate()
+			game_over()
+			
+			if self.platform != null:
+				self.platform.takeoff(self)
+		STATE.CNT:
+			return
+	state = value
 
 func _ready() -> void:
 	$ChargeTimer.wait_time = charge_full
@@ -19,76 +80,36 @@ func _ready() -> void:
 		queue_free()
 	else:
 		instance = self
-
-func _process(_delta: float) -> void:
-	var charged: float = charge_full - $ChargeTimer.time_left
-	var dest: Vector2 = Vector2.UP * charged / charge_full * max_dist
 	
-	$LandPoint.position = dest
+	await get_tree().physics_frame
+	land()
 
 func _input(_event: InputEvent) -> void:
-	if not on_floor:
+	if state != STATE.LANDED:
 		return
 	elif Input.is_action_just_pressed(&"Jump"):
+		'''점프 타이머 & 착지 지점 설정'''
 		$ChargeTimer.start()
-		set_process(true)
 		$LandPoint.show()
-		
 		$Sprite.ready_animate()
+		
+		is_ready = true
 	elif Input.is_action_just_released(&"Jump"):
-		var charged: float = charge_full - $ChargeTimer.time_left
-		var pos_tween: Tween = create_tween()
-		var tween_time: float = charged * 0.4
+		_state(STATE.JUMPED)
 		
-		# 이동
-		self.reparent(get_tree().root) # 점프 도중에는 자유로움
-		pos_tween.tween_property(self, "global_position", $LandPoint.global_position, tween_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-		
-		$LandPoint.hide()
-		set_process(false)
-		
-		# 타이머 초기화
-		$ChargeTimer.wait_time = charge_full
-		
-		# 애니메이션 설정
-		$Sprite.jump_animate(1.0 / tween_time)
-		
-		#플래그 설정
-		on_floor = false
-		pad_name = ""
+		is_ready = false
 
 func land() -> void:
-	var floating: Node2D = self.get_overlapping_bodies().pop_back()
-	if floating == null:
-		drown()
-		return
-	
-	var local_pos: Vector2 = floating.to_local(self.global_position)
-	var glob_rot: float = self.global_rotation
-	
-	self.reparent(floating, false)
-	await get_tree().physics_frame
-	await get_tree().physics_frame
-	self.position = local_pos
-	self.global_rotation = glob_rot
-	on_floor = true
-	
-	if pad_name != floating.name:
-		Data.earn_score(floating)
-		pad_name = floating.name
+	_state(STATE.LANDED)
 
 func drown() -> void:
-	self.reparent(get_tree().root)
-		
-	$Sprite.drown_animate()
-		
-	game_over()
+	_state(STATE.DROWNED)
 
-func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
-	game_over()
-
-func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
-	$CanvasLayer/TouchControl.show()
+func check_floor() -> Platform:
+	'''단순 체크, 물리 정보를 기반으로 하나만 반환'''
+	#TODO: 체크 방식 변경?
+	var platform: Platform = self.get_overlapping_bodies().pop_back()
+	return platform
 
 func game_over() -> void:
 	print("game over")
