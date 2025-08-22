@@ -2,7 +2,7 @@ extends AnimatedSprite2D
 signal landed()
 
 func _on_frame_changed() -> void:
-	if self.animation == &"idle" and self.frame == 0:
+	if self.animation == &"idle" and self.frame == 4:
 		%CroakSound.play()
 
 func _on_animation_finished() -> void:
@@ -14,7 +14,8 @@ func _on_animation_finished() -> void:
 		# 애니메이션 트리 하드코딩
 		if self.animation == &"jump": # 착지 후에도 애니메이션 변화 없으면
 			self.play(&"idle")
-		
+	elif self.animation == &"drown":
+		Frog.instance.queue_free()
 
 func jump_animate(speed: float) -> void:
 	self.play(&"jump")
@@ -27,7 +28,6 @@ func drown_animate() -> void:
 	get_parent().z_index = -1
 	self.play(&"drown")
 	
-	await get_tree().create_timer(0.1).timeout
 	%SplashSound.play()
 
 func ready_animate() -> void:

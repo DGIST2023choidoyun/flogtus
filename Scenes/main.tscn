@@ -1,10 +1,10 @@
 [gd_scene load_steps=12 format=3 uid="uid://bn1m4wpx3mgob"]
 
 [ext_resource type="Script" uid="uid://xb8ryj8o3lqo" path="res://scripts/setup.gd" id="1_85g3d"]
-[ext_resource type="PackedScene" uid="uid://yrio51fdgr41" path="res://objects/generator.tscn" id="1_tipki"]
 [ext_resource type="Texture2D" uid="uid://dswphblkaqbgs" path="res://textures/waterfall_0.png" id="2_85g3d"]
 [ext_resource type="FontFile" uid="uid://c5pkff1ivm3k8" path="res://fonts/Gamer.ttf" id="2_choun"]
 [ext_resource type="Texture2D" uid="uid://crag1mdw4j5uw" path="res://textures/waterfall_1.png" id="3_choun"]
+[ext_resource type="PackedScene" uid="uid://cev0ied4dgnpk" path="res://objects/floating_generator.tscn" id="4_choun"]
 [ext_resource type="Texture2D" uid="uid://bg61d303m86yj" path="res://textures/waterfall_2.png" id="4_ya4ey"]
 [ext_resource type="Texture2D" uid="uid://c0i2rmvjptu8l" path="res://textures/waterfall_3.png" id="5_eb6dy"]
 [ext_resource type="Script" uid="uid://d2a82e5pgeiaj" path="res://scripts/loop_sound.gd" id="7_a8y0u"]
@@ -32,7 +32,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 10.0
+"speed": 5.0
 }]
 
 [node name="Main" type="Node"]
@@ -96,7 +96,7 @@ text = "Touch to Start"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Generator" parent="." instance=ExtResource("1_tipki")]
+[node name="FloatingGenerator" parent="." instance=ExtResource("4_choun")]
 
 [node name="CollapseWall" type="RigidBody2D" parent="." groups=["WaterFall"]]
 position = Vector2(0, 440)
@@ -110,10 +110,10 @@ freeze = true
 shape = SubResource("WorldBoundaryShape2D_8gbba")
 
 [node name="Waterfall" type="AnimatedSprite2D" parent="."]
-position = Vector2(90, 310)
+position = Vector2(90, 315)
 sprite_frames = SubResource("SpriteFrames_6bp64")
 autoplay = "default"
-frame_progress = 0.0950634
+frame_progress = 0.445572
 
 [node name="WaterfallSound" type="Node2D" parent="."]
 script = ExtResource("7_a8y0u")

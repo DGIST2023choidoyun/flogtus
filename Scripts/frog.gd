@@ -20,27 +20,25 @@ func _state(value: STATE) -> void:
 			'''바닥 체크 후 처리'''
 			if state != STATE.NONE and state != STATE.JUMPED and state != STATE.LANDED:
 				return
-			var platform: Platform = check_floor()
-			if platform == null:
+			var pad: Platform = _check_floor()
+			if pad == null:
 				drown.call_deferred()
 			else:
-				if self.platform != platform: # 바닥 같으면 처리 안 함
-					var local_pos: Vector2 = platform.to_local(self.global_position)
+				if self.platform != pad: # 바닥 같으면 처리 안 함
+					var local_pos: Vector2 = pad.to_local(self.global_position)
 					var glob_rot: float = self.global_rotation
-					# TODO
-					self.reparent(platform, false)
-					await get_tree().physics_frame
-					await get_tree().physics_frame
+
+					self.reparent(pad, false)
 					self.position = local_pos
 					self.global_rotation = glob_rot
 					
 					if self.platform != null:
 						self.platform.takeoff(self)
-						Data.earn_score(platform)
-					platform.landed(self)
+						Data.earn_score(pad)
+					pad.landed(self)
 				
 				
-			self.platform = platform
+			self.platform = pad
 		STATE.JUMPED:
 			'''점프 애니메이션 설정'''
 			if state != STATE.LANDED and not is_ready:
@@ -65,6 +63,7 @@ func _state(value: STATE) -> void:
 				return
 			self.reparent(get_tree().root)
 			$Sprite.drown_animate()
+			$LandPoint.hide()
 			game_over()
 			
 			if self.platform != null:
@@ -105,11 +104,18 @@ func land() -> void:
 func drown() -> void:
 	_state(STATE.DROWNED)
 
-func check_floor() -> Platform:
-	'''단순 체크, 물리 정보를 기반으로 하나만 반환'''
-	#TODO: 체크 방식 변경?
-	var platform: Platform = self.get_overlapping_bodies().pop_back()
-	return platform
+func _check_floor() -> Platform:
+	var dss: PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
+	var qp: PhysicsShapeQueryParameters2D = PhysicsShapeQueryParameters2D.new()
+	qp.shape = $Shape.shape
+	qp.transform = self.global_transform
+	qp.collision_mask = self.collision_mask
+	var hits: Array[Dictionary] = dss.intersect_shape(qp)
+	
+	if hits.size() > 0:
+		return hits[0].collider
+	else:
+		return null
 
 func game_over() -> void:
-	print("game over")
+	pass

@@ -95,19 +95,19 @@ animations = [{
 "texture": SubResource("AtlasTexture_ii6tf")
 }, {
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_ii6tf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ii6tf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ii6tf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ii6tf")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_jkl5b")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ii6tf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ii6tf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ii6tf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ii6tf")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ii6tf")
@@ -151,9 +151,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1lrn2"]
-radius = 3.0
-height = 8.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_giiu1"]
+size = Vector2(1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kuh1s"]
 size = Vector2(180, 320)
@@ -172,9 +171,8 @@ autoplay = "idle"
 script = ExtResource("3_506uw")
 
 [node name="Shape" type="CollisionShape2D" parent="."]
-position = Vector2(0, 5)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_1lrn2")
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_giiu1")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(-3.57628e-07, -8.9407e-08)
@@ -203,7 +201,6 @@ bus = &"Effect"
 unique_name_in_owner = true
 stream = ExtResource("4_7uek1")
 volume_db = -3.0
-autoplay = true
 bus = &"Effect"
 
 [node name="SplashSound" type="AudioStreamPlayer2D" parent="."]

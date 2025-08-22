@@ -1,21 +1,14 @@
-extends Floating
+class_name LotusFlower extends Lotus
 
-var avel: float = 0.0
+const size: int = 15
 
 func _ready() -> void:
+	super()
 	$Sprite.frame = 0
-	
-	if randi() & 2:
-		avel = 1
-	else:
-		avel = -1
-	self.angular_velocity = avel
-
-func _on_body_entered(_body: Node) -> void:
-	self.angular_velocity = avel
 
 func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
-	$Timer.wait_time = randf() * 7.0 + 3.0 # TODO: Parameterize
+	var half_time: float = Utility.time_of_damped(Utility.world_y / 2)
+	$Timer.wait_time = randf() * half_time / 2 + half_time
 	$Timer.start()
 
 func _on_timer_timeout() -> void:
@@ -30,7 +23,5 @@ func _on_sprite_frame_changed() -> void:
 			2:
 				($Shape.shape as CircleShape2D).radius = 8
 			3:
-				#($Shape.shape as CircleShape2D).radius = 4
-				#self.add_collision_exception_with(Frog.instance)
 				collapse.emit()
 		state_changed.emit()

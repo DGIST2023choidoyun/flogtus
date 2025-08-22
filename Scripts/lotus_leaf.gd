@@ -1,20 +1,15 @@
-extends Floating
+class_name LotusLeaf extends Lotus
 
 enum SIZE { TINI = 10, SMALL = 15, MEDIUM = 20, BIG = 25, LARGE = 30 }
 
-var avel: float = 0.0
+var shape_size: int = 0
 
 func _ready() -> void:
-	var size: int = _rand_size()
-	($Shape.shape as CircleShape2D).radius = size # 약간의 패딩을 줌
+	super()
 	
-	if randi() & 2:
-		avel = 1
-	else:
-		avel = -1
-	self.angular_velocity = avel
+	$Shape.shape.radius = shape_size
 	
-	match size:
+	match shape_size:
 		SIZE.TINI:
 			$Sprite.texture = load("res://textures/lotus_leaf_tini.png")
 		SIZE.SMALL:
@@ -29,19 +24,20 @@ func _ready() -> void:
 	has_state = false
 	can_collapse = false
 
-func _rand_size() -> SIZE:
+static func rand_size() -> SIZE:
 	var ratio: float = randf()
 	
-	if ratio > 0.70:
+	if ratio > 0.65: # 35%
 		return SIZE.LARGE
-	elif ratio > 0.50:
+	elif ratio > 0.35: # 30%
 		return SIZE.BIG
-	elif ratio > 0.30:
+	elif ratio > 0.15: # 20%
 		return SIZE.MEDIUM
-	elif ratio > 0.10:
+	elif ratio > 0.05: # 10%
 		return SIZE.SMALL
-	else:
+	else: # 5%
 		return SIZE.TINI
 
-func _on_body_entered(_body: Node) -> void:
-	self.angular_velocity = avel
+func set_size(size: int) -> void:
+	shape_size = size
+	

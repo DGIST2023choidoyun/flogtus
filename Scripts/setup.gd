@@ -9,5 +9,5 @@ func _ready() -> void:
 func _on_screen_gui_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
 		if not event.pressed:
-			$Generator.start_generation()
+			$FloatingGenerator.start_generation()
 			$UI/Screen.hide()

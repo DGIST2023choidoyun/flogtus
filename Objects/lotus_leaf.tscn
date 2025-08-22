@@ -6,8 +6,8 @@
 friction = 0.0
 absorbent = true
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ftiaj"]
-radius = 0.01
+[sub_resource type="CircleShape2D" id="CircleShape2D_1e4ig"]
+resource_local_to_scene = true
 
 [node name="LotusLeaf" type="RigidBody2D" groups=["Lotus"]]
 collision_mask = 4
@@ -20,11 +20,9 @@ max_contacts_reported = 5
 linear_damp_mode = 1
 linear_damp = 0.2
 script = ExtResource("1_1e4ig")
-metadata/_custom_type_script = "uid://b0byvv3tvpa0y"
+metadata/_custom_type_script = "uid://vm2b3tmfo3bp"
 
 [node name="Sprite" type="Sprite2D" parent="."]
 
 [node name="Shape" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_ftiaj")
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+shape = SubResource("CircleShape2D_1e4ig")
