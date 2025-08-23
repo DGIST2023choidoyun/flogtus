@@ -1,39 +1,77 @@
-[gd_scene load_steps=13 format=3 uid="uid://bn1m4wpx3mgob"]
+[gd_scene load_steps=18 format=3 uid="uid://bn1m4wpx3mgob"]
 
 [ext_resource type="Script" uid="uid://xb8ryj8o3lqo" path="res://scripts/setup.gd" id="1_85g3d"]
-[ext_resource type="Texture2D" uid="uid://dswphblkaqbgs" path="res://textures/waterfall_0.png" id="2_85g3d"]
 [ext_resource type="FontFile" uid="uid://c5pkff1ivm3k8" path="res://fonts/Gamer.ttf" id="2_choun"]
 [ext_resource type="Script" uid="uid://c5sxv6ms4abix" path="res://scripts/ui.gd" id="2_ya4ey"]
-[ext_resource type="Texture2D" uid="uid://crag1mdw4j5uw" path="res://textures/waterfall_1.png" id="3_choun"]
 [ext_resource type="PackedScene" uid="uid://cev0ied4dgnpk" path="res://objects/floating_generator.tscn" id="4_choun"]
-[ext_resource type="Texture2D" uid="uid://bg61d303m86yj" path="res://textures/waterfall_2.png" id="4_ya4ey"]
-[ext_resource type="Texture2D" uid="uid://c0i2rmvjptu8l" path="res://textures/waterfall_3.png" id="5_eb6dy"]
+[ext_resource type="Texture2D" uid="uid://bm76tnpwbani7" path="res://textures/waterfall.png" id="5_o6xl0"]
 [ext_resource type="AudioStream" uid="uid://hqukeggu1oih" path="res://sounds/waterfall.mp3" id="8_choun"]
 [ext_resource type="AudioStream" uid="uid://kidvjeec45e6" path="res://sounds/frog_env.mp3" id="9_85g3d"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8gbba"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_o6xl0"]
+atlas = ExtResource("5_o6xl0")
+region = Rect2(0, 0, 196, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tipki"]
+atlas = ExtResource("5_o6xl0")
+region = Rect2(0, 16, 196, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85g3d"]
+atlas = ExtResource("5_o6xl0")
+region = Rect2(0, 32, 196, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_choun"]
+atlas = ExtResource("5_o6xl0")
+region = Rect2(0, 48, 196, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ya4ey"]
+atlas = ExtResource("5_o6xl0")
+region = Rect2(0, 64, 196, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eb6dy"]
+atlas = ExtResource("5_o6xl0")
+region = Rect2(0, 80, 196, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_trceg"]
+atlas = ExtResource("5_o6xl0")
+region = Rect2(0, 96, 196, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8y0u"]
+atlas = ExtResource("5_o6xl0")
+region = Rect2(0, 112, 196, 16)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_6bp64"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_85g3d")
+"texture": SubResource("AtlasTexture_o6xl0")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_choun")
+"texture": SubResource("AtlasTexture_tipki")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_ya4ey")
+"texture": SubResource("AtlasTexture_85g3d")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_eb6dy")
+"texture": SubResource("AtlasTexture_choun")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_ya4ey")
+"texture": SubResource("AtlasTexture_ya4ey")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eb6dy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_trceg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8y0u")
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 10.0
 }]
 
 [node name="Main" type="Node"]
@@ -113,10 +151,10 @@ freeze = true
 shape = SubResource("WorldBoundaryShape2D_8gbba")
 
 [node name="Waterfall" type="AnimatedSprite2D" parent="."]
-position = Vector2(90, 315)
+position = Vector2(90, 312)
 sprite_frames = SubResource("SpriteFrames_6bp64")
 autoplay = "default"
-frame_progress = 0.445572
+frame_progress = 0.522037
 
 [node name="Sound" type="AudioStreamPlayer2D" parent="Waterfall"]
 stream = ExtResource("8_choun")

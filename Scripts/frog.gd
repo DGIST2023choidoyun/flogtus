@@ -121,4 +121,5 @@ func _check_floor() -> Platform:
 		return null
 
 func game_over() -> void:
+	$Wave.splash()
 	pass
