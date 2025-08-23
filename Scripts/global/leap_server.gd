@@ -3,6 +3,8 @@ extends Node
 var frog: Frog
 func connect_frog(real_frog: Frog) -> void:
 	frog = real_frog
+	frog.body_entered.connect(landed)
+	frog.body_exited.connect(takeoff)
 
 func landed(platform: Node2D) -> void: # 개구리와 자연스러운 연결
 	if platform is Lotus:

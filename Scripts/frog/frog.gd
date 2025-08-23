@@ -68,8 +68,6 @@ func _state(value: STATE) -> void:
 			$LandPoint.hide()
 			game_over()
 			
-			if self.platform != null:
-				self.platform.takeoff(self)
 		STATE.CNT:
 			return
 	state = value
