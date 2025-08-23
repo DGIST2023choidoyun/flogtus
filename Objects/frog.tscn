@@ -166,9 +166,17 @@ monitorable = false
 script = ExtResource("1_vwpa2")
 metadata/_custom_type_script = "uid://b6v7bg41x50l0"
 
+[node name="LandPoint" type="Marker2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("7_giiu1")
+
+[node name="Sprite2D" type="Sprite2D" parent="LandPoint"]
+texture_filter = 1
+texture = ExtResource("7_1lrn2")
+
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_vwpa2")
-animation = &"drown"
+animation = &"idle"
 autoplay = "idle"
 script = ExtResource("3_506uw")
 
@@ -210,17 +218,6 @@ unique_name_in_owner = true
 stream = ExtResource("6_giiu1")
 volume_db = 12.0
 bus = &"Effect"
-
-[node name="LandPoint" type="Marker2D" parent="."]
-visible = false
-z_index = 1
-script = ExtResource("7_giiu1")
-
-[node name="Sprite2D" type="Sprite2D" parent="LandPoint"]
-visible = false
-texture_filter = 1
-position = Vector2(0, 5)
-texture = ExtResource("7_1lrn2")
 
 [node name="Wave" parent="." instance=ExtResource("9_mp1wj")]
 

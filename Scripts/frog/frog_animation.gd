@@ -21,7 +21,8 @@ func jump_animate(speed: float) -> void:
 	self.play(&"jump")
 	self.speed_scale = speed
 	
-	%JumpSound.play()
+	if %LandPoint.is_real_jump:
+		%JumpSound.play()
 
 func drown_animate() -> void:
 	get_parent().rotation = 0
