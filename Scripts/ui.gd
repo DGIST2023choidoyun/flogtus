@@ -19,9 +19,9 @@ func _on_screen_gui_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
 		if not event.pressed:
 			$Screen.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			game_start.emit()
 			await _flow_title()
 			$Score.show()
-			game_start.emit()
 
 func _show_result(score: int) -> void:
 	$Score.hide()
