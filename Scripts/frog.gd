@@ -122,4 +122,4 @@ func _check_floor() -> Platform:
 
 func game_over() -> void:
 	$Wave.splash()
-	pass
+	Data.frog_die()

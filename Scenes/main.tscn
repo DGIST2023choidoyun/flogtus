@@ -116,7 +116,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_choun")
 theme_override_font_sizes/font_size = 48
-text = "Flogtus"
+text = "FLOGTUS"
 
 [node name="Touch to Start" type="Label" parent="UI/Screen"]
 layout_mode = 1
@@ -136,6 +136,15 @@ theme_override_font_sizes/font_size = 20
 text = "Touch to Start"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Demo" type="Label" parent="UI/Screen"]
+layout_mode = 0
+offset_left = 127.0
+offset_top = 115.0
+offset_right = 167.0
+offset_bottom = 138.0
+theme_override_fonts/font = ExtResource("2_choun")
+text = "DEMO"
 
 [node name="FloatingGenerator" parent="." instance=ExtResource("4_choun")]
 
