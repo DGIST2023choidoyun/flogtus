@@ -1,8 +1,9 @@
 extends Node
 signal score_changed(value: int)
 signal game_over(score: int)
+signal init()
+signal game_set()
 
-var is_first: bool = true
 var score: int = 0:
 	set(v):
 		if v < 0:
@@ -22,4 +23,8 @@ func earn_score(floating: Platform) -> void:
 
 func frog_die() -> void:
 	game_over.emit(score)
+	init.emit()
 	score = 0 # 점수 초기화
+
+func restart_game() -> void:
+	game_set.emit()

@@ -29,6 +29,14 @@ func _ready() -> void:
 		return
 	instance = self
 	
+	Data.add_listener(&"init", _initialize)
+
+func _initialize() -> void:
+	$Timer.stop()
+	seed_floatings.clear()
+	no_frog = true
+	floating_cnt = 0
+
 func start_generation() -> void:
 	generate()
 	$Timer.start()
