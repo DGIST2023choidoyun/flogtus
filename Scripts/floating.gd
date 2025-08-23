@@ -1,13 +1,6 @@
 class_name Floating extends Platform
 
 func float_along_fall(flow_speed: float = River.flow_speed, damp: float = River.damp) -> void:
-	#var rand_vel: int = randi() % 20 + 10
-	#if self.position.x < Utility.world_x * 0.5:
-		#self.linear_velocity.x = rand_vel
-		#self.constant_force.x = 1
-	#elif self.position.x > Utility.world_x * 0.5:
-		#self.linear_velocity.x = -rand_vel
-		#self.constant_force.x = -1
 	self.gravity_scale = flow_speed
 	self.linear_damp = damp
 	self.linear_damp_mode = RigidBody2D.DAMP_MODE_REPLACE

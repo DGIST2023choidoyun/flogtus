@@ -33,12 +33,12 @@ func _state(value: STATE) -> void:
 					self.global_rotation = glob_rot
 					
 					if self.platform != null:
-						self.platform.takeoff(self)
 						Data.earn_score(pad)
-					pad.landed(self)
 				
 				
 			self.platform = pad
+			
+			self.monitoring = true
 		STATE.JUMPED:
 			'''점프 애니메이션 설정'''
 			if state != STATE.LANDED and not is_ready:
@@ -58,6 +58,8 @@ func _state(value: STATE) -> void:
 			
 			# 애니메이션 설정
 			$Sprite.jump_animate(1.0 / tween_time)
+			
+			self.monitoring = false
 		STATE.DROWNED:
 			if state != STATE.LANDED:
 				return
@@ -74,6 +76,7 @@ func _state(value: STATE) -> void:
 
 func _ready() -> void:
 	$ChargeTimer.wait_time = charge_full
+	LeapServer.connect_frog(self)
 	
 	if instance != null:
 		queue_free()

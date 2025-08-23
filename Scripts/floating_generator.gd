@@ -18,8 +18,8 @@ static var floating_cnt: int = 0:
 			v = 0
 		floating_cnt = v
 
-const lotus_leaf: PackedScene = preload("res://Objects/lotus_leaf.tscn")
-const lotus_flower: PackedScene = preload("res://Objects/lotus_flower.tscn")
+const lotus_leaf: PackedScene = preload("res://objects/lotus_leaf.tscn")
+const lotus_flower: PackedScene = preload("res://objects/lotus_flower.tscn")
 
 const gen_pos_padding: float = 40.0
 const max_floating_cnt: int = 40
@@ -31,6 +31,8 @@ var min_gap: float = 20.0
 var max_gap: float = Frog.max_dist - 20.0
 
 var seed_floatings: Array[Floating] = [] # 0 index => most highest floating
+
+var no_frog: bool = true
 
 func _ready() -> void:
 	if instance != null:
@@ -138,10 +140,12 @@ func _arrange_lotus(lotus: Lotus, pos: Vector2) -> void:
 	lotus.rotation = randf() * TAU
 	lotus.float_along_fall()
 	
-	if Frog.instance == null: #TODO: 게임 오버 조건 추가
+	if no_frog:
 		var frog: Frog = load("res://objects/frog.tscn").instantiate()
 		lotus.add_child(frog)
 		frog.position = Vector2.ZERO # center of lotus
+		
+		no_frog = false
 
 func _convert_floating_to_disk(floating: Floating) -> Disk:
 	var collision_shape: Node = floating.get_node("./Shape")

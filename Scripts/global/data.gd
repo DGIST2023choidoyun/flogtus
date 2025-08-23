@@ -1,6 +1,7 @@
 extends Node
 signal score_changed(value: int)
 
+var is_first: bool = true
 var score: int = 0:
 	set(v):
 		if v < 0:

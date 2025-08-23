@@ -1,14 +1,15 @@
-[gd_scene load_steps=12 format=3 uid="uid://bn1m4wpx3mgob"]
+[gd_scene load_steps=13 format=3 uid="uid://bn1m4wpx3mgob"]
 
 [ext_resource type="Script" uid="uid://xb8ryj8o3lqo" path="res://scripts/setup.gd" id="1_85g3d"]
 [ext_resource type="Texture2D" uid="uid://dswphblkaqbgs" path="res://textures/waterfall_0.png" id="2_85g3d"]
 [ext_resource type="FontFile" uid="uid://c5pkff1ivm3k8" path="res://fonts/Gamer.ttf" id="2_choun"]
+[ext_resource type="Script" uid="uid://c5sxv6ms4abix" path="res://scripts/ui.gd" id="2_ya4ey"]
 [ext_resource type="Texture2D" uid="uid://crag1mdw4j5uw" path="res://textures/waterfall_1.png" id="3_choun"]
 [ext_resource type="PackedScene" uid="uid://cev0ied4dgnpk" path="res://objects/floating_generator.tscn" id="4_choun"]
 [ext_resource type="Texture2D" uid="uid://bg61d303m86yj" path="res://textures/waterfall_2.png" id="4_ya4ey"]
 [ext_resource type="Texture2D" uid="uid://c0i2rmvjptu8l" path="res://textures/waterfall_3.png" id="5_eb6dy"]
-[ext_resource type="Script" uid="uid://d2a82e5pgeiaj" path="res://scripts/loop_sound.gd" id="7_a8y0u"]
-[ext_resource type="AudioStream" uid="uid://xu02mja4elkg" path="res://sounds/waterfall.wav" id="8_jkv2x"]
+[ext_resource type="AudioStream" uid="uid://hqukeggu1oih" path="res://sounds/waterfall.mp3" id="8_choun"]
+[ext_resource type="AudioStream" uid="uid://kidvjeec45e6" path="res://sounds/frog_env.mp3" id="9_85g3d"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8gbba"]
 
@@ -40,8 +41,10 @@ script = ExtResource("1_85g3d")
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 10
+script = ExtResource("2_ya4ey")
 
 [node name="Score" type="Label" parent="UI"]
+visible = false
 offset_left = 8.0
 offset_right = 48.0
 offset_bottom = 19.0
@@ -115,25 +118,22 @@ sprite_frames = SubResource("SpriteFrames_6bp64")
 autoplay = "default"
 frame_progress = 0.445572
 
-[node name="WaterfallSound" type="Node2D" parent="."]
-script = ExtResource("7_a8y0u")
-
-[node name="Player1" type="AudioStreamPlayer2D" parent="WaterfallSound"]
-stream = ExtResource("8_jkv2x")
-volume_db = -11.0
-pitch_scale = 0.5
+[node name="Sound" type="AudioStreamPlayer2D" parent="Waterfall"]
+stream = ExtResource("8_choun")
 autoplay = true
 bus = &"BGM"
+parameters/looping = true
 
-[node name="Player2" type="AudioStreamPlayer2D" parent="WaterfallSound"]
-stream = ExtResource("8_jkv2x")
-volume_db = -8.0
-pitch_scale = 0.5
+[node name="EnvSound" type="AudioStreamPlayer2D" parent="Waterfall"]
+stream = ExtResource("9_85g3d")
+volume_db = 10.0
+autoplay = true
 bus = &"BGM"
+parameters/looping = true
 
-[node name="Timer" type="Timer" parent="WaterfallSound"]
-wait_time = 0.3
-autostart = true
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+position = Vector2(90, 160)
+current = true
 
-[connection signal="gui_input" from="UI/Screen" to="." method="_on_screen_gui_input"]
-[connection signal="timeout" from="WaterfallSound/Timer" to="WaterfallSound" method="_on_timer_timeout"]
+[connection signal="game_start" from="UI" to="FloatingGenerator" method="start_generation"]
+[connection signal="gui_input" from="UI/Screen" to="UI" method="_on_screen_gui_input"]
