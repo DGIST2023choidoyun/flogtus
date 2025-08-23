@@ -1,15 +1,5 @@
-class_name FloatingGenerator extends Node2D
+class_name FloatingGenerator extends Generator
 
-class Disk:
-	var pos: Vector2
-	var radius: int
-	
-	func _init(new_pos: Vector2, new_radius: int) -> void:
-		pos = new_pos
-		radius = new_radius
-	
-	static func gap(disk1: Disk, disk2: Disk) -> float:
-		return (disk1.pos - disk2.pos).length() - disk1.radius - disk2.radius
 
 static var instance: FloatingGenerator = null
 static var floating_cnt: int = 0:
@@ -21,7 +11,6 @@ static var floating_cnt: int = 0:
 const lotus_leaf: PackedScene = preload("res://objects/lotus_leaf.tscn")
 const lotus_flower: PackedScene = preload("res://objects/lotus_flower.tscn")
 
-const gen_pos_padding: float = 40.0
 const max_floating_cnt: int = 40
 const max_try: int = 30
 const latest_floating_cnt: int = 12
@@ -57,10 +46,10 @@ func generate() -> void:
 	for floating: Floating in seed_floatings:
 		active_disk.append(_convert_floating_to_disk(floating))
 	if active_disk.is_empty():
-		var dummy_disk: Disk = Disk.new(Vector2(randf() * Utility.world_x, -gen_pos_padding), 0)
+		var dummy_disk: Disk = Disk.new(Vector2(randf() * Utility.world_x, -screen_padding), 0)
 		active_disk.append(dummy_disk) # 더미 Disk 삽입
 		nearest_seed = dummy_disk
-		max_y = -gen_pos_padding
+		max_y = -screen_padding
 	else:
 		nearest_seed = active_disk[0]
 		max_y = nearest_seed.pos.y - nearest_seed.radius + max_gap - min_gap # important: radius 뒷 항에 따라 청크당 간격이 좌우됨.

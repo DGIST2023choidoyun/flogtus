@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bn1m4wpx3mgob"]
+[gd_scene load_steps=17 format=3 uid="uid://bn1m4wpx3mgob"]
 
 [ext_resource type="Script" uid="uid://xb8ryj8o3lqo" path="res://scripts/setup.gd" id="1_85g3d"]
 [ext_resource type="FontFile" uid="uid://c5pkff1ivm3k8" path="res://fonts/Gamer.ttf" id="2_choun"]
@@ -7,8 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://bm76tnpwbani7" path="res://textures/waterfall.png" id="5_o6xl0"]
 [ext_resource type="AudioStream" uid="uid://hqukeggu1oih" path="res://sounds/waterfall.mp3" id="8_choun"]
 [ext_resource type="AudioStream" uid="uid://kidvjeec45e6" path="res://sounds/frog_env.mp3" id="9_85g3d"]
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8gbba"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o6xl0"]
 atlas = ExtResource("5_o6xl0")
@@ -147,17 +145,6 @@ theme_override_fonts/font = ExtResource("2_choun")
 text = "DEMO"
 
 [node name="FloatingGenerator" parent="." instance=ExtResource("4_choun")]
-
-[node name="CollapseWall" type="RigidBody2D" parent="." groups=["WaterFall"]]
-position = Vector2(0, 440)
-collision_layer = 4
-collision_mask = 0
-gravity_scale = 0.0
-can_sleep = false
-freeze = true
-
-[node name="Shape" type="CollisionShape2D" parent="CollapseWall"]
-shape = SubResource("WorldBoundaryShape2D_8gbba")
 
 [node name="Waterfall" type="AnimatedSprite2D" parent="."]
 position = Vector2(90, 312)

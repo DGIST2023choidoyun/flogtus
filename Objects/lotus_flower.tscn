@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://dr7vb264jubp3"]
 
-[ext_resource type="Script" uid="uid://d265xc0iw2gb4" path="res://scripts/lotus_flower.gd" id="1_4in8w"]
+[ext_resource type="Script" uid="uid://d265xc0iw2gb4" path="res://scripts/platform/lotus_flower.gd" id="1_4in8w"]
 [ext_resource type="Texture2D" uid="uid://cjsap0xcwdasa" path="res://textures/lotus_flower_small.png" id="2_5eg23"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4in8w"]
