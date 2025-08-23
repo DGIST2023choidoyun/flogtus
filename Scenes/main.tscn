@@ -1,36 +1,37 @@
-[gd_scene load_steps=31 format=3 uid="uid://bn1m4wpx3mgob"]
+[gd_scene load_steps=32 format=3 uid="uid://bn1m4wpx3mgob"]
 
 [ext_resource type="Script" uid="uid://xb8ryj8o3lqo" path="res://scripts/setup.gd" id="1_85g3d"]
 [ext_resource type="FontFile" uid="uid://c5pkff1ivm3k8" path="res://fonts/Gamer.ttf" id="2_choun"]
 [ext_resource type="Script" uid="uid://c5sxv6ms4abix" path="res://scripts/ui.gd" id="2_ya4ey"]
-[ext_resource type="Script" uid="uid://b2u231t1x0fkw" path="res://scripts/result_modal.gd" id="4_85g3d"]
+[ext_resource type="Script" path="res://scripts/result_modal.gd" id="4_85g3d"]
 [ext_resource type="PackedScene" uid="uid://cev0ied4dgnpk" path="res://objects/floating_generator.tscn" id="4_choun"]
-[ext_resource type="Texture2D" uid="uid://bxg3hty18se7d" path="res://textures/modal.png" id="4_tipki"]
+[ext_resource type="FontFile" uid="uid://ky8fnbmv54sx" path="res://fonts/SilomBol.ttf" id="4_tipki"]
 [ext_resource type="Texture2D" uid="uid://bm76tnpwbani7" path="res://textures/waterfall.png" id="5_o6xl0"]
 [ext_resource type="Script" uid="uid://bdeky2c47ycp8" path="res://scripts/discription.gd" id="6_eb6dy"]
+[ext_resource type="Texture2D" uid="uid://bxg3hty18se7d" path="res://textures/modal.png" id="6_trceg"]
 [ext_resource type="Texture2D" uid="uid://bgpmja0k7ppiw" path="res://textures/frog_jump.png" id="6_ya4ey"]
 [ext_resource type="AudioStream" uid="uid://hqukeggu1oih" path="res://sounds/waterfall.mp3" id="8_choun"]
 [ext_resource type="AudioStream" uid="uid://ktb3ngfuupya" path="res://sounds/frog_croak_third.mp3" id="8_eb6dy"]
 [ext_resource type="AudioStream" uid="uid://kidvjeec45e6" path="res://sounds/frog_env.mp3" id="9_85g3d"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jkv2x"]
-atlas = ExtResource("4_tipki")
+atlas = ExtResource("6_trceg")
 region = Rect2(0, 0, 100, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jbj1t"]
-atlas = ExtResource("4_tipki")
+atlas = ExtResource("6_trceg")
 region = Rect2(100, 0, 100, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_muem4"]
-atlas = ExtResource("4_tipki")
+atlas = ExtResource("6_trceg")
 region = Rect2(200, 0, 100, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dp3eg"]
-atlas = ExtResource("4_tipki")
+atlas = ExtResource("6_trceg")
 region = Rect2(300, 0, 100, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0ld40"]
-atlas = ExtResource("4_tipki")
+atlas = ExtResource("6_trceg")
 region = Rect2(400, 0, 100, 80)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_o6xl0"]
@@ -225,8 +226,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_outline_color = Color(0.290196, 0.356863, 0.278431, 1)
 theme_override_constants/outline_size = 8
-theme_override_fonts/font = ExtResource("2_choun")
-theme_override_font_sizes/font_size = 20
+theme_override_fonts/font = ExtResource("4_tipki")
+theme_override_font_sizes/font_size = 16
 text = "Touch to Start"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -299,9 +300,9 @@ offset_right = 40.0
 offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_choun")
-theme_override_font_sizes/font_size = 12
-text = "Humans are AMAZING species."
+theme_override_fonts/font = ExtResource("4_tipki")
+theme_override_font_sizes/font_size = 8
+text = "Here’s the Snakehom River."
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
