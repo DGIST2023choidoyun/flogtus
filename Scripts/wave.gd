@@ -18,5 +18,5 @@ func _draw() -> void:
 	set_process(true)
 
 func splash() -> void:
-	reparent(get_tree().root)
+	reparent(get_tree().current_scene)
 	self.show()

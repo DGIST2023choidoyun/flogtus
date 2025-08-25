@@ -1,6 +1,6 @@
 class_name River extends Node
 
-const damp_default: float = 0.2
+const damp_default: float = 0.0
 const flow_speed_default: float = 4.0
 
 static var damp: float = damp_default

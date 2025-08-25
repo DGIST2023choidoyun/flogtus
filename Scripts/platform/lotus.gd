@@ -1,6 +1,9 @@
 class_name Lotus extends Floating
 
-var avel: float = 0.0
+static func count() -> int:
+	return Counter.how_many(&"Lotus")
+	
+var avel: float = 0.0 # 각속도
 
 func _ready() -> void:
 	if randi() & 2:

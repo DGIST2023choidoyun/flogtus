@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bn1m4wpx3mgob"]
+[gd_scene load_steps=20 format=3 uid="uid://bn1m4wpx3mgob"]
 
 [ext_resource type="Script" uid="uid://xb8ryj8o3lqo" path="res://scripts/setup.gd" id="1_85g3d"]
 [ext_resource type="FontFile" uid="uid://c5pkff1ivm3k8" path="res://fonts/Gamer.ttf" id="2_choun"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bm76tnpwbani7" path="res://textures/waterfall.png" id="5_o6xl0"]
 [ext_resource type="AudioStream" uid="uid://hqukeggu1oih" path="res://sounds/waterfall.mp3" id="8_choun"]
 [ext_resource type="AudioStream" uid="uid://kidvjeec45e6" path="res://sounds/frog_env.mp3" id="9_85g3d"]
+[ext_resource type="Script" uid="uid://c7cfu75o3cfs7" path="res://scripts/wall.gd" id="9_choun"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o6xl0"]
 atlas = ExtResource("5_o6xl0")
@@ -72,6 +73,8 @@ animations = [{
 "name": &"default",
 "speed": 10.0
 }]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_tipki"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_85g3d")
@@ -161,5 +164,20 @@ parameters/looping = true
 position = Vector2(90, 160)
 current = true
 
+[node name="Wall" type="RigidBody2D" parent="." groups=["Wall"]]
+position = Vector2(0, 400)
+collision_layer = 4
+gravity_scale = 0.0
+lock_rotation = true
+freeze = true
+freeze_mode = 1
+contact_monitor = true
+max_contacts_reported = 100
+script = ExtResource("9_choun")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
+shape = SubResource("WorldBoundaryShape2D_tipki")
+
 [connection signal="game_start" from="UI" to="FloatingGenerator" method="start_generation"]
 [connection signal="gui_input" from="UI/Screen" to="UI" method="_on_screen_gui_input"]
+[connection signal="body_entered" from="Wall" to="Wall" method="_on_body_entered"]

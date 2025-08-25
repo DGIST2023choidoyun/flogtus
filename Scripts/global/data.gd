@@ -14,7 +14,7 @@ func add_listener(signal_name: StringName, callable: Callable) -> void:
 		connect(signal_name, callable)
 
 func earn_score(floating: Platform) -> void:
-	if floating != null and floating.is_in_group(&"Flower"):
+	if floating != null and floating.is_in_group(&"LotusFlower"):
 		score += 2 # 꽃은 2점
 	else:
 		score += 1

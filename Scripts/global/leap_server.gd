@@ -3,6 +3,8 @@ extends Node
 var frog: Frog
 func connect_frog(real_frog: Frog) -> void:
 	frog = real_frog
+	frog.body_entered.connect(landed)
+	frog.body_exited.connect(takeoff)
 
 func landed(platform: Platform) -> void: # 개구리와 자연스러운 연결
 	if platform is Lotus:
@@ -11,14 +13,6 @@ func landed(platform: Platform) -> void: # 개구리와 자연스러운 연결
 			lotus.state_changed.connect(frog.land)
 		if lotus.can_collapse and not lotus.collapse.is_connected(frog.drown):
 			lotus.collapse.connect(frog.drown)
-	
-		var wave: Node2D = load("res://objects/wave.tscn").instantiate()
-		get_tree().root.add_child(wave)
-		wave.position = platform.position
-		wave.show()
-		
-		print("asd")
-	
 
 func takeoff(platform: Platform) -> void:
 	if platform is Lotus:

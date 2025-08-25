@@ -1,15 +1,19 @@
 class_name LotusLeaf extends Lotus
 
+static func count() -> int:
+	return Counter.how_many(&"LotusLeaf")
+	
 enum SIZE { TINI = 10, SMALL = 15, MEDIUM = 20, BIG = 25, LARGE = 30 }
-
-var shape_size: int = 0
 
 func _ready() -> void:
 	super()
 	
-	$Shape.shape.radius = shape_size
+	assert($Shape.shape is CircleShape2D)
 	
-	match shape_size:
+	var size: int = _rand_size()
+	$Shape.shape.radius = size
+	
+	match size:
 		SIZE.TINI:
 			$Sprite.texture = load("res://textures/lotus_leaf_tini.png")
 		SIZE.SMALL:
@@ -24,7 +28,7 @@ func _ready() -> void:
 	has_state = false
 	can_collapse = false
 
-static func rand_size() -> SIZE:
+static func _rand_size() -> SIZE:
 	var ratio: float = randf()
 	
 	if ratio > 0.65: # 35%
@@ -37,7 +41,6 @@ static func rand_size() -> SIZE:
 		return SIZE.SMALL
 	else: # 5%
 		return SIZE.TINI
-
-func set_size(size: int) -> void:
-	shape_size = size
 	
+func get_space_radius() -> float:
+	return $Shape.shape.radius

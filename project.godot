@@ -25,7 +25,7 @@ config/windows_native_icon="res://flogtus_icon.ico"
 Utility="*res://scripts/global/util.gd"
 Data="*res://scripts/global/data.gd"
 LeapServer="*res://scripts/global/leap_server.gd"
-DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
+Counter="*res://scripts/global/counter.gd"
 
 [debug]
 
@@ -51,10 +51,6 @@ window/size/window_height_override=1280
 window/stretch/mode="canvas_items"
 window/handheld/orientation=1
 
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg")
-
 [file_customization]
 
 folder_colors={
@@ -66,7 +62,12 @@ folder_colors={
 [global_group]
 
 Lotus=""
+Platform=""
+Floating=""
+LotusLeaf=""
+LotusFlower=""
 Flower=""
+Wall=""
 
 [input]
 
