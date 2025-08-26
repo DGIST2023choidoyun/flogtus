@@ -10,13 +10,17 @@ const _floating_scenes: Array[PackedScene] = [
 	preload("res://objects/lotus_flower.tscn")
 ]
 var _lowest_anchor: Anchor = Anchor.new(Vector2.DOWN * Utility.world_y, 0.0, null)
-const _zero_vel: float = 25.0
+#var _zero_vel: float = River.flow_speed * 4
+var _vel_postive_y_thres: float = River.flow_speed * 8 / 100
 
 var min_gap: float = 20.0
-var max_gap: float = Frog.max_dist - 20.0
+var max_gap: float = Frog.max_dist - min_gap * 2
+var mutant_rate: float = 0.1 # 난이도 param
 
 var _gen_prob: Array[float] = []
 var _seeds: Array[Anchor] = []
+
+var _no_frog: bool = true
 
 func _ready() -> void:
 	SingletonHook.new(self)
@@ -29,6 +33,7 @@ func _ready() -> void:
 
 func _initialize() -> void:
 	_seeds.clear()
+	_no_frog = true
 	$Tick.stop()
 	
 func start_generation() -> void:
@@ -42,29 +47,20 @@ func generate() -> void:
 		_seeds.append(Anchor.new(Vector2(randf() * Utility.world_x, -screen_padding), 0, null))
 	else:
 		_update_seeds()
-		prints("seed aft", _seeds.map(func(seed): return "{0}: {1} / ".format([seed.platform.name, seed.disk.pos.y])))
-		prints("seed aft ==================")
 	var active_list: Array[Anchor] = [_seeds[0]] # 생성 기준점이 될 수 있는 앵커 집합, 처음에는 가장 상위의 앵커만
 	var restrain_list: Array[Anchor] = _seeds.duplicate() # 거리 조건 검사를 위한 앵커 집합
 	var highest_anchor: Anchor = _lowest_anchor
 
-	#if _seeds[0].platform == null:
-		#_seeds.pop_front()
 	_seeds.clear()
-	var test_color = Color(randf(), randf(), randf())
-	var test_name = str(randi())
-	prints("test", test_color)
 	for _i in _cnt_per_tick: # 한 틱에 생성 개수 고정
 		var new_floating: Floating = _gen_floating()
 		var new_size: float = new_floating.get_space_radius()
 		if new_floating == null:
 			continue
 		
-		new_floating.name = test_name
-		new_floating.modulate = test_color
 		while true: # 위치 탐색
 			var norm: Anchor = active_list.pick_random()
-			var dir: Vector2 = Vector2.RIGHT.rotated(randf_range(-_30_deg, 0) + (_30_deg + PI) * (randi() % 2))
+			var dir: Vector2 = _get_dir()
 			var candidate_pos: Vector2 = norm.disk.pos + dir * (norm.disk.radius + new_size + randf_range(min_gap, max_gap))
 
 			if candidate_pos.y + new_size > 0 or candidate_pos.x < 0 or candidate_pos.x > Utility.world_x:
@@ -92,15 +88,17 @@ func generate() -> void:
 				# floating 활성화
 				new_floating.position = candidate_pos
 				new_floating.show()
-				new_floating.linear_velocity.y = sqrt(_zero_vel ** 2 - 2 * River.flow_speed * new_floating.position.y)
-				prints("vel", sqrt(_zero_vel ** 2 - 2 * River.flow_speed * new_floating.position.y))
+				
+				if _no_frog:
+					var frog: Frog = load("res://objects/frog.tscn").instantiate() as Frog
+					new_floating.add_child(frog)
+					frog.position = Vector2.ZERO
+					
+					_no_frog = false
 				break
 	
-	prints("seed bef ==================")
-	prints("seed bef", _seeds.map(func(seed): return "{0}: {1} / ".format([seed.platform.name, seed.disk.pos.y])))
+	prints("msec", Time.get_ticks_msec() - test_msec)
 	
-	prints("time", Time.get_ticks_msec() - test_msec)
-
 func _rand_type() -> int:
 	var r: float = randf()
 	for i in _gen_prob.size():
@@ -121,3 +119,8 @@ func _gen_floating() -> Floating:
 func _update_seeds() -> void:
 	for anchor in _seeds:
 		anchor.update()
+
+func _get_dir() -> Vector2:
+	if randf() < mutant_rate:
+		return Vector2.RIGHT.rotated(randf_range(PI, PI * 2))
+	return Vector2.RIGHT.rotated(randf_range(-_30_deg, 0) + (_30_deg + PI) * (randi() % 2))

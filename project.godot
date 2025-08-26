@@ -26,6 +26,7 @@ Utility="*res://scripts/global/util.gd"
 Data="*res://scripts/global/data.gd"
 LeapServer="*res://scripts/global/leap_server.gd"
 Counter="*res://scripts/global/counter.gd"
+DebugMenu="*res://addons/debug_menu/debug_menu.tscn"
 
 [debug]
 
@@ -50,6 +51,10 @@ window/size/window_width_override=720
 window/size/window_height_override=1280
 window/stretch/mode="canvas_items"
 window/handheld/orientation=1
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/debug_menu/plugin.cfg")
 
 [file_customization]
 

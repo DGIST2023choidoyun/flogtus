@@ -13,11 +13,6 @@ func rand_normal(mean: float = 0.0, stddev: float = 1.0) -> float:
 	
 	return clamp(z0 * stddev + mean, mean - 4 * stddev, mean + 4 * stddev)
 
-func time_of_damped(s: float) -> float:
-	var inv_damp: float = 1.0 / River.damp
-	var ratio_s_g: float = s / River.flow_speed
-	return ratio_s_g * River.damp + inv_damp - inv_damp * exp(-1 - ratio_s_g * (River.damp ** 2))
-
 func erase_subarray(arr: Array, sub: Array) -> void:
 	var new_arr: Array = []
 	for element in arr:

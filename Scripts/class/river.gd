@@ -1,11 +1,8 @@
 class_name River extends Node
 
-const damp_default: float = 0.0
-const flow_speed_default: float = 4.0
+const flow_speed_default: float = 16.0
 
-static var damp: float = damp_default
-static var flow_speed: float = flow_speed_default # == gravity
+static var flow_speed: float = flow_speed_default
 
 func init_game() -> void:
-	damp = damp_default
 	flow_speed = flow_speed_default

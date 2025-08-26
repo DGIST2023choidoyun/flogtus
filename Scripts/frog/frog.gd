@@ -63,17 +63,16 @@ func _state(value: STATE) -> void:
 		STATE.DROWNED:
 			if state != STATE.LANDED:
 				return
-			self.reparent(get_tree().curent_scene)
+			self.reparent(get_tree().current_scene)
 			$Sprite.drown_animate()
 			$LandPoint.hide()
 			game_over()
+			
 		STATE.CNT:
 			return
 	state = value
 
 func _ready() -> void:
-	SingletonHook.new(self)
-
 	$ChargeTimer.wait_time = charge_full
 	LeapServer.connect_frog(self)
 	
@@ -121,4 +120,4 @@ func _check_floor() -> Platform:
 
 func game_over() -> void:
 	$Wave.splash()
-	pass
+	#Data.frog_die()
