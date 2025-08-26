@@ -22,4 +22,4 @@ func _notification(what: int) -> void:
 			is_real_jump = false
 		else:
 			set_process(false)
-			self.position = Vector2.ZERO
+			set_deferred(&"position", Vector2.ZERO)

@@ -1,5 +1,4 @@
 extends AnimatedSprite2D
-signal landed()
 
 var walk_frame = 0
 
@@ -14,11 +13,10 @@ func _on_animation_finished() -> void:
 		&"drown":
 			Frog.instance.queue_free()
 		&"land":
-			print("land f")
 			self.play(&"idle")
 		&"walk":
-			print("walk f")
 			self.scale.x = 1
+			self.play(&"idle")
 
 func animate(type: String, speed: float = 1.0) -> void:
 	self.speed_scale = speed
@@ -27,10 +25,6 @@ func animate(type: String, speed: float = 1.0) -> void:
 			if %LandPoint.is_real_jump:
 				self.play(&"jump")
 				%JumpSound.play()
-			else:
-				self.play(&"walk")
-				self.scale.x = 1 if walk_frame % 2 == 0 else -1
-				walk_frame += 1
 		"drown":
 			get_parent().rotation = 0
 			get_parent().z_index = -1
@@ -43,4 +37,11 @@ func animate(type: String, speed: float = 1.0) -> void:
 		"land":
 			self.play(&"land")
 		"walk":
-			pass
+			self.play(&"walk")
+			self.scale.x = 1 if walk_frame % 2 == 0 else -1
+			walk_frame += 1
+
+
+
+func _on_animation_changed() -> void:
+	prints("anim", self.animation)

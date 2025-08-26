@@ -176,7 +176,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"walk",
-"speed": 20.0
+"speed": 10.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_giiu1"]
@@ -196,14 +196,23 @@ metadata/_custom_type_script = "uid://b6v7bg41x50l0"
 unique_name_in_owner = true
 script = ExtResource("7_giiu1")
 
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="LandPoint"]
+position = Vector2(0, 2)
+remote_path = NodePath("../Sprite2D")
+update_rotation = false
+
 [node name="Sprite2D" type="Sprite2D" parent="LandPoint"]
+top_level = true
+z_index = 1
 texture_filter = 1
+position = Vector2(0, 2)
 texture = ExtResource("7_1lrn2")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_vwpa2")
-animation = &"walk"
+animation = &"idle"
 autoplay = "idle"
+frame_progress = 0.746678
 script = ExtResource("3_506uw")
 
 [node name="Shape" type="CollisionShape2D" parent="."]
@@ -247,7 +256,7 @@ bus = &"Effect"
 
 [node name="Wave" parent="." instance=ExtResource("9_mp1wj")]
 
+[connection signal="animation_changed" from="Sprite" to="Sprite" method="_on_animation_changed"]
 [connection signal="animation_finished" from="Sprite" to="Sprite" method="_on_animation_finished"]
 [connection signal="frame_changed" from="Sprite" to="Sprite" method="_on_frame_changed"]
-[connection signal="landed" from="Sprite" to="." method="land"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="CanvasLayer/TouchControl" method="show"]
