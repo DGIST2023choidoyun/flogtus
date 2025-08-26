@@ -1,36 +1,46 @@
 extends AnimatedSprite2D
 signal landed()
 
+var walk_frame = 0
+
 func _on_frame_changed() -> void:
 	if self.animation == &"idle" and self.frame == 4:
 		%CroakSound.play()
 
 func _on_animation_finished() -> void:
-	self.speed_scale = 1.0
-	if self.animation == &"jump":
-		
-		landed.emit()
-		
-		# 애니메이션 트리 하드코딩
-		if self.animation == &"jump": # 착지 후에도 애니메이션 변화 없으면
+	match self.animation:
+		#&"jump":
+			#landed.emit()
+		&"drown":
+			Frog.instance.queue_free()
+		&"land":
+			print("land f")
 			self.play(&"idle")
-	elif self.animation == &"drown":
-		Frog.instance.queue_free()
+		&"walk":
+			print("walk f")
+			self.scale.x = 1
 
-func jump_animate(speed: float) -> void:
-	self.play(&"jump")
+func animate(type: String, speed: float = 1.0) -> void:
 	self.speed_scale = speed
-	
-	if %LandPoint.is_real_jump:
-		%JumpSound.play()
-
-func drown_animate() -> void:
-	get_parent().rotation = 0
-	get_parent().z_index = -1
-	self.play(&"drown")
-	
-	%SplashSound.play()
-
-func ready_animate() -> void:
-	if self.animation == &"idle":
-		self.play(&"ready")
+	match type:
+		"jump":
+			if %LandPoint.is_real_jump:
+				self.play(&"jump")
+				%JumpSound.play()
+			else:
+				self.play(&"walk")
+				self.scale.x = 1 if walk_frame % 2 == 0 else -1
+				walk_frame += 1
+		"drown":
+			get_parent().rotation = 0
+			get_parent().z_index = -1
+			self.play(&"drown")
+			
+			%SplashSound.play()
+		"ready":
+			if self.animation == &"idle":
+				self.play(&"ready")
+		"land":
+			self.play(&"land")
+		"walk":
+			pass

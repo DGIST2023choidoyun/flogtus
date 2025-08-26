@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bm76tnpwbani7" path="res://textures/waterfall.png" id="5_o6xl0"]
 [ext_resource type="AudioStream" uid="uid://hqukeggu1oih" path="res://sounds/waterfall.mp3" id="8_choun"]
 [ext_resource type="AudioStream" uid="uid://kidvjeec45e6" path="res://sounds/frog_env.mp3" id="9_85g3d"]
-[ext_resource type="Script" path="res://scripts/wall.gd" id="9_choun"]
+[ext_resource type="Script" uid="uid://c7cfu75o3cfs7" path="res://scripts/wall.gd" id="9_choun"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o6xl0"]
 atlas = ExtResource("5_o6xl0")

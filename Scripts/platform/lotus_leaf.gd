@@ -4,11 +4,18 @@ static func count() -> int:
 	return Counter.how_many(&"LotusLeaf")
 	
 enum SIZE { TINI = 10, SMALL = 15, MEDIUM = 20, BIG = 25, LARGE = 30 }
+@export var auto_sizing: bool = true
 
 func _ready() -> void:
 	super()
 	
 	assert($Shape.shape is CircleShape2D)
+	
+	has_state = false
+	can_collapse = false
+	
+	if not auto_sizing:
+		return
 	
 	var size: int = _rand_size()
 	$Shape.shape.radius = size
@@ -24,9 +31,6 @@ func _ready() -> void:
 			$Sprite.texture = load("res://textures/lotus_leaf_big.png")
 		SIZE.LARGE:
 			$Sprite.texture = load("res://textures/lotus_leaf_large.png")
-	
-	has_state = false
-	can_collapse = false
 
 static func _rand_size() -> SIZE:
 	var ratio: float = randf()

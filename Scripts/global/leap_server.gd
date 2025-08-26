@@ -12,6 +12,7 @@ func landed(platform: Platform) -> void: # 개구리와 자연스러운 연결
 	if platform.can_collapse and not platform.collapse.is_connected(frog.drown):
 		platform.collapse.connect(frog.drown)
 		
+	# TODO
 	var tw := create_tween()
 	var k := 4.0              # 감쇠 (클수록 빨리 잦아듦)
 	var freq := 3.5           # 진동수(헤르츠 개념 아님; 아래 w와 곱해짐)
@@ -21,7 +22,7 @@ func landed(platform: Platform) -> void: # 개구리와 자연스러운 연결
 	tw.tween_method(
 		func(t):
 			var e := exp(-k * t)
-			var c := cos(w * t)
+			var c := -sin(w * t)
 
 			# 스쿼시&스트레치: x는 +, y는 - 로 역상
 			var squash := 0.2 * e * c

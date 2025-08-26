@@ -35,10 +35,13 @@ func _state(value: STATE) -> void:
 					if self.platform != null:
 						Data.earn_score(pad)
 				
-				
-			self.platform = pad
-			
-			self.monitoring = true
+					self.platform = pad
+					
+					self.monitoring = true
+					
+					$Sprite.animate("land")
+				if not %LandPoint.is_real_jump:
+					$Sprite.animate("walk")
 		STATE.JUMPED:
 			'''점프 애니메이션 설정'''
 			if state != STATE.LANDED and not is_ready:
@@ -49,6 +52,7 @@ func _state(value: STATE) -> void:
 			
 			# 이동
 			pos_tween.tween_property(self, "global_position", $LandPoint.global_position, tween_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			pos_tween.finished.connect(land)
 			
 			$LandPoint.hide()
 			set_process(false)
@@ -57,14 +61,14 @@ func _state(value: STATE) -> void:
 			$ChargeTimer.wait_time = charge_full
 			
 			# 애니메이션 설정
-			$Sprite.jump_animate(1.0 / tween_time)
+			$Sprite.animate("jump", 0.6 / tween_time)
 			
 			self.monitoring = false
 		STATE.DROWNED:
 			if state != STATE.LANDED:
 				return
 			self.reparent(get_tree().current_scene)
-			$Sprite.drown_animate()
+			$Sprite.animate("drown")
 			$LandPoint.hide()
 			game_over()
 			
@@ -91,9 +95,12 @@ func _input(_event: InputEvent) -> void:
 		'''점프 타이머 & 착지 지점 설정'''
 		$ChargeTimer.start()
 		$LandPoint.show()
-		$Sprite.ready_animate()
 		
 		is_ready = true
+		
+		await get_tree().create_timer(0.1).timeout
+		if is_ready:
+			$Sprite.animate("ready")
 	elif Input.is_action_just_released(&"Jump"):
 		_state(STATE.JUMPED)
 		
