@@ -39,7 +39,7 @@ func _state(value: STATE) -> void:
 			'''점프 애니메이션 설정'''
 			if state != STATE.LANDED and state != STATE.WALKED and not is_ready:
 				return
-			var charged: float = charge_full - $ChargeTimer.time_left
+			var charged = charge_full - $ChargeTimer.time_left
 			var pos_tween: Tween = create_tween()
 			var tween_time: float = charged * over_air_coef
 			
@@ -80,14 +80,13 @@ func _input(_event: InputEvent) -> void:
 	elif Input.is_action_just_pressed(&"Jump"):
 		'''점프 타이머 & 착지 지점 설정'''
 		$ChargeTimer.start()
+		$LandPoint.show()
 		
 		is_ready = true
 		
 		await get_tree().create_timer(0.1).timeout
 		if is_ready:
 			$Sprite.animate("ready")
-			$LandPoint.show()
-			
 	elif Input.is_action_just_released(&"Jump"):
 		is_ready = false
 		

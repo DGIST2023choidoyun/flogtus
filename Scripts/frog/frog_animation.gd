@@ -34,14 +34,10 @@ func animate(type: String, speed: float = 1.0) -> void:
 		"ready":
 			if self.animation == &"idle":
 				self.play(&"ready")
+				walk_frame = 0
 		"land":
 			self.play(&"land")
 		"walk":
 			self.play(&"walk")
 			self.scale.x = 1 if walk_frame % 2 == 0 else -1
 			walk_frame += 1
-
-
-
-func _on_animation_changed() -> void:
-	prints("anim", self.animation)

@@ -149,6 +149,7 @@ frame_progress = 0.522037
 
 [node name="Sound" type="AudioStreamPlayer2D" parent="Waterfall"]
 stream = ExtResource("8_choun")
+volume_db = -3.0
 autoplay = true
 bus = &"BGM"
 parameters/looping = true

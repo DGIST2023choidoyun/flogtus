@@ -180,7 +180,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_giiu1"]
-size = Vector2(1, 1)
+size = Vector2(3, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kuh1s"]
 size = Vector2(180, 320)
@@ -194,6 +194,7 @@ metadata/_custom_type_script = "uid://b6v7bg41x50l0"
 
 [node name="LandPoint" type="Marker2D" parent="."]
 unique_name_in_owner = true
+scale = Vector2(0.4, 0.4)
 script = ExtResource("7_giiu1")
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="LandPoint"]
@@ -205,7 +206,8 @@ update_rotation = false
 top_level = true
 z_index = 1
 texture_filter = 1
-position = Vector2(0, 2)
+position = Vector2(0, 0.8)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("7_1lrn2")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
@@ -216,7 +218,7 @@ frame_progress = 0.746678
 script = ExtResource("3_506uw")
 
 [node name="Shape" type="CollisionShape2D" parent="."]
-position = Vector2(0, 2)
+position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_giiu1")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
@@ -239,24 +241,23 @@ one_shot = true
 [node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("3_ii6tf")
-volume_db = 10.0
+volume_db = 2.0
 bus = &"Effect"
 
 [node name="CroakSound" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("5_giiu1")
-volume_db = 24.0
+volume_db = 15.0
 bus = &"Effect"
 
 [node name="SplashSound" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("6_giiu1")
-volume_db = 12.0
+volume_db = 2.0
 bus = &"Effect"
 
 [node name="Wave" parent="." instance=ExtResource("9_mp1wj")]
 
-[connection signal="animation_changed" from="Sprite" to="Sprite" method="_on_animation_changed"]
 [connection signal="animation_finished" from="Sprite" to="Sprite" method="_on_animation_finished"]
 [connection signal="frame_changed" from="Sprite" to="Sprite" method="_on_frame_changed"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="CanvasLayer/TouchControl" method="show"]
