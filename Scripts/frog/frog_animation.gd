@@ -13,7 +13,8 @@ func _on_animation_finished() -> void:
 		&"drown":
 			Frog.instance.queue_free()
 		&"land":
-			self.play(&"idle")
+			if self.animation == &"land":
+				self.play(&"idle")
 		&"walk":
 			self.scale.x = 1
 			self.play(&"idle")
@@ -32,7 +33,7 @@ func animate(type: String, speed: float = 1.0) -> void:
 			
 			%SplashSound.play()
 		"ready":
-			if self.animation == &"idle":
+			if self.animation == &"idle" or self.animation == &"land":
 				self.play(&"ready")
 				walk_frame = 0
 		"land":
@@ -41,3 +42,7 @@ func animate(type: String, speed: float = 1.0) -> void:
 			self.play(&"walk")
 			self.scale.x = 1 if walk_frame % 2 == 0 else -1
 			walk_frame += 1
+
+
+func _on_animation_changed() -> void:
+	print(self.animation)

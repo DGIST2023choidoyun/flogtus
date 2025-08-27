@@ -13,3 +13,9 @@ var can_collapse: bool = true
 
 func get_space_radius() -> float:
 	return 0.0
+
+func landed(_frog: Frog) -> void:
+	pass
+
+func takeoff(_frog: Frog) -> void:
+	pass

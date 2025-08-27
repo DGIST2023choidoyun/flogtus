@@ -9,11 +9,12 @@ func _ready() -> void:
 		
 		var y_tween: Tween = create_tween()
 		y_tween.tween_property($Screen, "position:y", 0, 3).set_trans(Tween.TRANS_LINEAR)
+		y_tween.tween_callback(
+			func() -> void:
+				Data.is_first = false
+				$Screen.mouse_filter = Control.MOUSE_FILTER_STOP
+		)
 		
-		await y_tween.finished
-		
-		Data.is_first = false
-		$Screen.mouse_filter = Control.MOUSE_FILTER_STOP
 
 func _on_screen_gui_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:

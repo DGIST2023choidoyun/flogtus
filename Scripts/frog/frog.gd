@@ -45,7 +45,7 @@ func _state(value: STATE) -> void:
 			
 			# 이동
 			pos_tween.tween_property(self, "global_position", $LandPoint.global_position, tween_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-			pos_tween.finished.connect(step)
+			pos_tween.tween_callback(step)
 			
 			$Sprite.animate("jump", 0.6 / tween_time)
 			
@@ -101,7 +101,6 @@ func step() -> void:
 		drown.call_deferred()
 		return
 	if not %LandPoint.is_real_jump:
-		print("stepped")
 		_state(STATE.WALKED)
 	else:
 		if self.platform != pad:
