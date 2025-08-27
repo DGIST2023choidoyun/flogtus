@@ -26,12 +26,10 @@ func _on_screen_gui_input(event: InputEvent) -> void:
 func _show_result(score: int) -> void:
 	$Score.hide()
 	
-	await get_tree().create_timer(3.0).timeout
-	
 	$ResultModal.show_result(score)
 
 func _flow_title() -> void:
 	var y_tween: Tween = create_tween()
-	y_tween.tween_property($Screen, "position:y", $Screen.position.y + Utility.world_y, 3).set_trans(Tween.TRANS_LINEAR)
+	y_tween.tween_property($Screen, "position:y", $Screen.position.y + Utility.world_y, 2).set_trans(Tween.TRANS_LINEAR)
 	
 	await y_tween.finished

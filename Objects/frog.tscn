@@ -205,19 +205,19 @@ one_shot = true
 [node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("3_ii6tf")
-volume_db = 10.0
+volume_db = 2.0
 bus = &"Effect"
 
 [node name="CroakSound" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("5_giiu1")
-volume_db = 24.0
+volume_db = 15.0
 bus = &"Effect"
 
 [node name="SplashSound" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("6_giiu1")
-volume_db = 12.0
+volume_db = 2.0
 bus = &"Effect"
 
 [node name="Wave" parent="." instance=ExtResource("9_mp1wj")]

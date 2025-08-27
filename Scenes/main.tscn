@@ -1,9 +1,9 @@
-[gd_scene load_steps=32 format=3 uid="uid://bn1m4wpx3mgob"]
+[gd_scene load_steps=33 format=3 uid="uid://bn1m4wpx3mgob"]
 
 [ext_resource type="Script" uid="uid://xb8ryj8o3lqo" path="res://scripts/setup.gd" id="1_85g3d"]
 [ext_resource type="FontFile" uid="uid://c5pkff1ivm3k8" path="res://fonts/Gamer.ttf" id="2_choun"]
 [ext_resource type="Script" uid="uid://c5sxv6ms4abix" path="res://scripts/ui.gd" id="2_ya4ey"]
-[ext_resource type="Script" path="res://scripts/result_modal.gd" id="4_85g3d"]
+[ext_resource type="Script" uid="uid://b2u231t1x0fkw" path="res://scripts/result_modal.gd" id="4_85g3d"]
 [ext_resource type="PackedScene" uid="uid://cev0ied4dgnpk" path="res://objects/floating_generator.tscn" id="4_choun"]
 [ext_resource type="FontFile" uid="uid://ky8fnbmv54sx" path="res://fonts/SilomBol.ttf" id="4_tipki"]
 [ext_resource type="Texture2D" uid="uid://bm76tnpwbani7" path="res://textures/waterfall.png" id="5_o6xl0"]
@@ -99,6 +99,9 @@ animations = [{
 "name": &"idle",
 "speed": 3.0
 }]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_trceg"]
+size = Vector2(180, 320)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o6xl0"]
 atlas = ExtResource("5_o6xl0")
@@ -326,6 +329,11 @@ position = Vector2(-42, -34)
 remote_path = NodePath("../Frog")
 update_rotation = false
 
+[node name="TouchScreenButton" type="TouchScreenButton" parent="UI/ResultModal"]
+top_level = true
+position = Vector2(90, 160)
+shape = SubResource("RectangleShape2D_trceg")
+
 [node name="FloatingGenerator" parent="." instance=ExtResource("4_choun")]
 
 [node name="Waterfall" type="AnimatedSprite2D" parent="."]
@@ -336,6 +344,7 @@ frame_progress = 0.522037
 
 [node name="Sound" type="AudioStreamPlayer2D" parent="Waterfall"]
 stream = ExtResource("8_choun")
+volume_db = -3.0
 autoplay = true
 bus = &"BGM"
 parameters/looping = true
@@ -353,3 +362,4 @@ current = true
 
 [connection signal="game_start" from="UI" to="FloatingGenerator" method="start_generation"]
 [connection signal="gui_input" from="UI/Screen" to="UI" method="_on_screen_gui_input"]
+[connection signal="pressed" from="UI/ResultModal/TouchScreenButton" to="UI/ResultModal" method="_screen_touched"]
