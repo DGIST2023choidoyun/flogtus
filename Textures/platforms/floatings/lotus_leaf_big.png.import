@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cv8ip2tbbiup7"
-path="res://.godot/imported/tracker.png-65ad4bfc2b1911db975fc55ed57614f0.ctex"
+uid="uid://b3g2b4aekeqhs"
+path="res://.godot/imported/lotus_leaf_big.png-6d8a3d7e952c3cbaf04fcbd37a618348.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/tracker.png"
-dest_files=["res://.godot/imported/tracker.png-65ad4bfc2b1911db975fc55ed57614f0.ctex"]
+source_file="res://textures/platforms/floatings/lotus_leaf_big.png"
+dest_files=["res://.godot/imported/lotus_leaf_big.png-6d8a3d7e952c3cbaf04fcbd37a618348.ctex"]
 
 [params]
 

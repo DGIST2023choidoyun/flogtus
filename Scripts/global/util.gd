@@ -16,7 +16,7 @@ func rand_normal(mean: float = 0.0, stddev: float = 1.0) -> float:
 
 func erase_subarray(arr: Array, sub: Array) -> void:
 	var new_arr: Array = []
-	for element in arr:
+	for element: Variant in arr:
 		if not sub.has(element):
 			new_arr.append(element)
 	

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://btblagbovi5om"
-path="res://.godot/imported/frog_drown.png-a62e3c989722d7c2cd530579be8a7318.ctex"
+uid="uid://cjsap0xcwdasa"
+path="res://.godot/imported/lotus_flower_small.png-af82638d1ed282737b15d5f0e7efd51b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/frog_drown.png"
-dest_files=["res://.godot/imported/frog_drown.png-a62e3c989722d7c2cd530579be8a7318.ctex"]
+source_file="res://textures/platforms/floatings/lotus_flower_small.png"
+dest_files=["res://.godot/imported/lotus_flower_small.png-af82638d1ed282737b15d5f0e7efd51b.ctex"]
 
 [params]
 

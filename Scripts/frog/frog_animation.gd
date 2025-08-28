@@ -1,6 +1,6 @@
 extends AnimatedSprite2D
 
-var walk_frame = 0
+var walk_frame: int = 0
 
 func _on_frame_changed() -> void:
 	if self.animation == &"idle" and self.frame == 4:

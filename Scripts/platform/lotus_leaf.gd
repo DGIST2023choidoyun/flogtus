@@ -22,15 +22,15 @@ func _ready() -> void:
 	
 	match size:
 		SIZE.TINI:
-			$Sprite.texture = load("res://textures/lotus_leaf_tini.png")
+			$Sprite.texture = load("res://textures/platforms/floatings/lotus_leaf_tini.png")
 		SIZE.SMALL:
-			$Sprite.texture = load("res://textures/lotus_leaf_small.png")
+			$Sprite.texture = load("res://textures/platforms/floatings/lotus_leaf_small.png")
 		SIZE.MEDIUM:
-			$Sprite.texture = load("res://textures/lotus_leaf_medium.png")
+			$Sprite.texture = load("res://textures/platforms/floatings/lotus_leaf_medium.png")
 		SIZE.BIG:
-			$Sprite.texture = load("res://textures/lotus_leaf_big.png")
+			$Sprite.texture = load("res://textures/platforms/floatings/lotus_leaf_big.png")
 		SIZE.LARGE:
-			$Sprite.texture = load("res://textures/lotus_leaf_large.png")
+			$Sprite.texture = load("res://textures/platforms/floatings/lotus_leaf_large.png")
 
 static func _rand_size() -> SIZE:
 	var ratio: float = randf()

@@ -1,17 +1,16 @@
-[gd_scene load_steps=34 format=3 uid="uid://j0ic2piyq7ay"]
+[gd_scene load_steps=33 format=3 uid="uid://j0ic2piyq7ay"]
 
 [ext_resource type="Script" uid="uid://b6v7bg41x50l0" path="res://scripts/frog/frog.gd" id="1_vwpa2"]
-[ext_resource type="Texture2D" uid="uid://btblagbovi5om" path="res://textures/frog_drown.png" id="2_ixa5d"]
-[ext_resource type="Texture2D" uid="uid://bgpmja0k7ppiw" path="res://textures/frog_jump.png" id="2_kuh1s"]
+[ext_resource type="Texture2D" uid="uid://btblagbovi5om" path="res://textures/frog/frog_drown.png" id="2_ixa5d"]
+[ext_resource type="Texture2D" uid="uid://bgpmja0k7ppiw" path="res://textures/frog/frog_jump.png" id="2_kuh1s"]
 [ext_resource type="Script" uid="uid://76hwhulrx6rf" path="res://scripts/frog/frog_animation.gd" id="3_506uw"]
 [ext_resource type="AudioStream" uid="uid://brsqh0g7pyh0d" path="res://sounds/jump.wav" id="3_ii6tf"]
-[ext_resource type="Texture2D" uid="uid://bhb8soywdyhou" path="res://textures/trajectory.png" id="4_gf1tt"]
-[ext_resource type="Texture2D" uid="uid://ck87s82f0nkfc" path="res://textures/frog_croak.png" id="5_3kgtr"]
-[ext_resource type="Texture2D" uid="uid://cv8ip2tbbiup7" path="res://textures/tracker.png" id="5_dsk4o"]
+[ext_resource type="Texture2D" uid="uid://bhb8soywdyhou" path="res://textures/ui/trajectory.png" id="4_gf1tt"]
+[ext_resource type="Texture2D" uid="uid://ck87s82f0nkfc" path="res://textures/frog/frog_croak.png" id="5_3kgtr"]
 [ext_resource type="AudioStream" uid="uid://dipucm2iigyk4" path="res://sounds/frog_croak.mp3" id="5_giiu1"]
 [ext_resource type="AudioStream" uid="uid://vow0nob6cauo" path="res://sounds/splash.mp3" id="6_giiu1"]
-[ext_resource type="Texture2D" uid="uid://beovl7p3p131p" path="res://textures/land_point.png" id="7_1lrn2"]
-[ext_resource type="Texture2D" uid="uid://bey7oflclj1vg" path="res://textures/frog_walk.png" id="7_2v6g3"]
+[ext_resource type="Texture2D" uid="uid://beovl7p3p131p" path="res://textures/ui/land_point.png" id="7_1lrn2"]
+[ext_resource type="Texture2D" uid="uid://bey7oflclj1vg" path="res://textures/frog/frog_walk.png" id="7_2v6g3"]
 [ext_resource type="Script" uid="uid://dnc54nkh3nugd" path="res://scripts/frog/land_point.gd" id="7_giiu1"]
 [ext_resource type="PackedScene" uid="uid://cauj2ey8oqrbl" path="res://objects/wave.tscn" id="9_mp1wj"]
 
@@ -215,10 +214,6 @@ texture_filter = 1
 position = Vector2(0, 2)
 texture = ExtResource("7_1lrn2")
 
-[node name="VisibleOnScreenNotifier" type="VisibleOnScreenNotifier2D" parent="LandPoint/Sprite"]
-scale = Vector2(1, 1)
-rect = Rect2(-7, -7, 14, 14)
-
 [node name="Trajectory" type="Sprite2D" parent="LandPoint"]
 top_level = true
 z_index = 1
@@ -228,13 +223,6 @@ texture = ExtResource("4_gf1tt")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 8, 0)
-
-[node name="Tracker" type="Sprite2D" parent="LandPoint"]
-visible = false
-top_level = true
-z_index = 1
-texture = ExtResource("5_dsk4o")
-offset = Vector2(10, 0)
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_vwpa2")
@@ -286,8 +274,6 @@ bus = &"Effect"
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2(0, 102)
 
-[connection signal="screen_entered" from="LandPoint/Sprite/VisibleOnScreenNotifier" to="LandPoint" method="_hide_tracker"]
-[connection signal="screen_exited" from="LandPoint/Sprite/VisibleOnScreenNotifier" to="LandPoint" method="_show_tracker"]
 [connection signal="animation_changed" from="Sprite" to="Sprite" method="_on_animation_changed"]
 [connection signal="animation_finished" from="Sprite" to="Sprite" method="_on_animation_finished"]
 [connection signal="frame_changed" from="Sprite" to="Sprite" method="_on_frame_changed"]

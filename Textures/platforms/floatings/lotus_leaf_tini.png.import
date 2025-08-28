@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c76u2pftfuyw6"
-path="res://.godot/imported/lotus_leaf_small.png-22cc32b9a31fca3c8c4cb149e1d3e80c.ctex"
+uid="uid://cj3epkv6qdvkt"
+path="res://.godot/imported/lotus_leaf_tini.png-ba189abb4be0d3fb0ca1a526f03ba01c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/lotus_leaf_small.png"
-dest_files=["res://.godot/imported/lotus_leaf_small.png-22cc32b9a31fca3c8c4cb149e1d3e80c.ctex"]
+source_file="res://textures/platforms/floatings/lotus_leaf_tini.png"
+dest_files=["res://.godot/imported/lotus_leaf_tini.png-ba189abb4be0d3fb0ca1a526f03ba01c.ctex"]
 
 [params]
 

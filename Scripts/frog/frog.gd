@@ -39,7 +39,7 @@ func _state(value: STATE) -> void:
 			'''점프 애니메이션 설정'''
 			if state != STATE.LANDED and state != STATE.WALKED and not is_ready:
 				return
-			var charged = charge_full - $ChargeTimer.time_left
+			var charged: float = charge_full - $ChargeTimer.time_left
 			var pos_tween: Tween = create_tween()
 			var tween_time: float = charged * over_air_coef
 			
@@ -62,6 +62,9 @@ func _state(value: STATE) -> void:
 	state = value
 
 func _ready() -> void:
+	var tracker_scene: Tracker = load("res://objects/tracker.tscn").instantiate()
+	tracker_scene.assign_target(self, 6.0, "res://textures/ui/frog_tracker.png")
+	
 	$ChargeTimer.wait_time = charge_full
 	LeapServer.connect_frog(self)
 	set_process(false)

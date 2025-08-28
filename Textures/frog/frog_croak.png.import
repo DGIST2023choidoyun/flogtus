@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bey7oflclj1vg"
-path="res://.godot/imported/frog_walk.png-f6b933ecd218424b6ba77b0acc30ed34.ctex"
+uid="uid://ck87s82f0nkfc"
+path="res://.godot/imported/frog_croak.png-56706ab297526aaa45d69b391d4af582.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/frog_walk.png"
-dest_files=["res://.godot/imported/frog_walk.png-f6b933ecd218424b6ba77b0acc30ed34.ctex"]
+source_file="res://textures/frog/frog_croak.png"
+dest_files=["res://.godot/imported/frog_croak.png-56706ab297526aaa45d69b391d4af582.ctex"]
 
 [params]
 

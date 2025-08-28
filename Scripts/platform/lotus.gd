@@ -15,7 +15,7 @@ func landed(_frog: Frog) -> void:
 	tween.tween_method(_slosh, 0.0, 1.0, dur
 	).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_callback(
-		func():
+		func() -> void:
 			$Sprite.scale = Vector2.ONE
 			$Sprite.position = Vector2.ZERO
 	)

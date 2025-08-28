@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cj3epkv6qdvkt"
-path="res://.godot/imported/lotus_leaf_tini.png-889aea84a7465a7bcdb9ce5931cec146.ctex"
+uid="uid://beovl7p3p131p"
+path="res://.godot/imported/land_point.png-7f22fda216b7ad65b8dd967f820ab1f7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/lotus_leaf_tini.png"
-dest_files=["res://.godot/imported/lotus_leaf_tini.png-889aea84a7465a7bcdb9ce5931cec146.ctex"]
+source_file="res://textures/ui/land_point.png"
+dest_files=["res://.godot/imported/land_point.png-7f22fda216b7ad65b8dd967f820ab1f7.ctex"]
 
 [params]
 
