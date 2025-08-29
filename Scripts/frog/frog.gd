@@ -54,9 +54,11 @@ func _state(value: STATE) -> void:
 			if state != STATE.LANDED and state != STATE.WALKED and state != STATE.JUMPED:
 				return
 			self.reparent(get_tree().current_scene)
-			$Sprite.animate("drown")
-			game_over()
 			
+			$LandPoint.hide()
+			$Sprite.animate("drown")
+			
+			game_over()
 		STATE.CNT, STATE.NONE:
 			return
 	state = value

@@ -56,7 +56,8 @@ window/handheld/orientation=1
 folder_colors={
 "res://objects/": "orange",
 "res://scenes/": "teal",
-"res://scripts/": "green"
+"res://scripts/": "green",
+"res://shaders/": "pink"
 }
 
 [global_group]

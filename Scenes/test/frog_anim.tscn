@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://w1q7bc26bsqu"]
+[gd_scene load_steps=7 format=3 uid="uid://w1q7bc26bsqu"]
 
 [ext_resource type="Script" uid="uid://bat4484aqs1jc" path="res://scripts/test/frog_anim.gd" id="1_hbjet"]
 [ext_resource type="Script" uid="uid://b35sq3ul3j1n5" path="res://scripts/platform/lotus_leaf.gd" id="1_thpfy"]
 [ext_resource type="Texture2D" uid="uid://c4yofcght6nqb" path="res://textures/platforms/floatings/lotus_leaf_large.png" id="2_hbjet"]
 [ext_resource type="PackedScene" uid="uid://j0ic2piyq7ay" path="res://objects/frog.tscn" id="4_m50gp"]
+[ext_resource type="Script" uid="uid://ds5jps78objwv" path="res://scripts/test/edge_peek.gd" id="5_x8ot2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m50gp"]
 radius = 30.0
@@ -12,7 +13,7 @@ radius = 30.0
 script = ExtResource("1_hbjet")
 
 [node name="LotusLeaf" type="RigidBody2D" parent="."]
-position = Vector2(6, 110)
+position = Vector2(94, 110)
 script = ExtResource("1_thpfy")
 auto_sizing = false
 metadata/_custom_type_script = "uid://b35sq3ul3j1n5"
@@ -26,7 +27,7 @@ shape = SubResource("CircleShape2D_m50gp")
 [node name="Frog" parent="LotusLeaf" instance=ExtResource("4_m50gp")]
 
 [node name="LotusLeaf2" type="RigidBody2D" parent="."]
-position = Vector2(6, 210)
+position = Vector2(94, 210)
 script = ExtResource("1_thpfy")
 auto_sizing = false
 metadata/_custom_type_script = "uid://b35sq3ul3j1n5"
@@ -36,3 +37,41 @@ texture = ExtResource("2_hbjet")
 
 [node name="Shape" type="CollisionShape2D" parent="LotusLeaf2"]
 shape = SubResource("CircleShape2D_m50gp")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="EdgePeek" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("player")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_x8ot2")
+player = NodePath("../../LotusLeaf/Frog")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer/EdgePeek"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 26.0
+offset_top = 68.0
+offset_right = 26.0
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/EdgePeek/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+size = Vector2i(180, 320)
+size_2d_override = Vector2i(18, 32)
+render_target_update_mode = 0
+
+[node name="PeekCam" type="Camera2D" parent="CanvasLayer/EdgePeek/SubViewportContainer/SubViewport"]
+texture_filter = 1
+position = Vector2(-88, 0)

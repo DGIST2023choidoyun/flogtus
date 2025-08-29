@@ -42,7 +42,3 @@ func animate(type: String, speed: float = 1.0) -> void:
 			self.play(&"walk")
 			self.scale.x = 1 if walk_frame % 2 == 0 else -1
 			walk_frame += 1
-
-
-func _on_animation_changed() -> void:
-	print(self.animation)
