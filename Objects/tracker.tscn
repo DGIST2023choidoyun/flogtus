@@ -5,7 +5,7 @@
 
 [node name="Tracker" type="Sprite2D"]
 top_level = true
-z_index = 3
+z_index = 5
 texture = ExtResource("1_gg4sa")
 offset = Vector2(9.5, 0)
 script = ExtResource("2_h1p10")

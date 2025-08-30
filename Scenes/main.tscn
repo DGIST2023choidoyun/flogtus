@@ -1,14 +1,19 @@
-[gd_scene load_steps=20 format=3 uid="uid://bn1m4wpx3mgob"]
+[gd_scene load_steps=25 format=3 uid="uid://bn1m4wpx3mgob"]
 
 [ext_resource type="Script" uid="uid://xb8ryj8o3lqo" path="res://scripts/setup.gd" id="1_85g3d"]
 [ext_resource type="FontFile" uid="uid://c5pkff1ivm3k8" path="res://fonts/Gamer.ttf" id="2_choun"]
 [ext_resource type="Script" uid="uid://c5sxv6ms4abix" path="res://scripts/ui.gd" id="2_ya4ey"]
 [ext_resource type="PackedScene" uid="uid://cev0ied4dgnpk" path="res://objects/floating_generator.tscn" id="4_choun"]
-[ext_resource type="FontFile" uid="uid://dbck831o4tvcv" path="res://fonts/SilomBol.ttf" id="4_tipki"]
+[ext_resource type="Texture2D" uid="uid://cvu4rscps6hnv" path="res://textures/ui/btn_setting_up.png" id="4_ya4ey"]
+[ext_resource type="Texture2D" uid="uid://bru0c0nlwfu32" path="res://textures/ui/btn_setting_down.png" id="5_eb6dy"]
 [ext_resource type="Texture2D" uid="uid://bm76tnpwbani7" path="res://textures/waterfall.png" id="5_o6xl0"]
+[ext_resource type="Texture2D" uid="uid://boqkujcys54n4" path="res://textures/ui/btn_play_up.png" id="6_a8y0u"]
+[ext_resource type="Texture2D" uid="uid://b1rlqkcvl8eb0" path="res://textures/ui/btn_play_down.png" id="7_jkv2x"]
 [ext_resource type="AudioStream" uid="uid://hqukeggu1oih" path="res://sounds/waterfall.mp3" id="8_choun"]
+[ext_resource type="Texture2D" uid="uid://5bf3heu64d5q" path="res://textures/ui/btn_up.png" id="8_jbj1t"]
 [ext_resource type="AudioStream" uid="uid://kidvjeec45e6" path="res://sounds/frog_env.mp3" id="9_85g3d"]
 [ext_resource type="Script" uid="uid://c7cfu75o3cfs7" path="res://scripts/wall.gd" id="9_choun"]
+[ext_resource type="Texture2D" uid="uid://721rebhvsso0" path="res://textures/ui/btn_down.png" id="9_muem4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o6xl0"]
 atlas = ExtResource("5_o6xl0")
@@ -88,6 +93,7 @@ visible = false
 offset_left = 8.0
 offset_right = 48.0
 offset_bottom = 19.0
+theme_override_colors/font_color = Color(1, 0.992157, 0.976471, 1)
 theme_override_colors/font_outline_color = Color(0.290196, 0.356863, 0.278431, 1)
 theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("2_choun")
@@ -95,49 +101,56 @@ theme_override_font_sizes/font_size = 24
 text = "0"
 vertical_alignment = 1
 
-[node name="Screen" type="Control" parent="UI"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Title" type="Label" parent="UI/Screen"]
-layout_mode = 1
+[node name="Title" type="Label" parent="UI"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -58.5
+offset_left = -64.5
 offset_top = -75.0
-offset_right = 58.5
+offset_right = 64.5
 offset_bottom = -37.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.992157, 0.976471, 1)
 theme_override_fonts/font = ExtResource("2_choun")
 theme_override_font_sizes/font_size = 48
 text = "FLOGTUS"
 
-[node name="Touch to Start" type="Label" parent="UI/Screen"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -60.5
-offset_top = -35.5
-offset_right = 60.5
-offset_bottom = -12.5
+[node name="Controller" type="HBoxContainer" parent="UI"]
+custom_minimum_size = Vector2(0, 60)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -48.0
 grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("4_tipki")
-theme_override_font_sizes/font_size = 16
-text = "Touch to Start"
-horizontal_alignment = 1
-vertical_alignment = 1
+grow_vertical = 0
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="SettingButton" type="TextureButton" parent="UI/Controller"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+texture_normal = ExtResource("4_ya4ey")
+texture_pressed = ExtResource("5_eb6dy")
+texture_hover = ExtResource("4_ya4ey")
+ignore_texture_size = true
+
+[node name="PlayButton" type="TextureButton" parent="UI/Controller"]
+custom_minimum_size = Vector2(60, 36)
+layout_mode = 2
+texture_normal = ExtResource("6_a8y0u")
+texture_pressed = ExtResource("7_jkv2x")
+texture_hover = ExtResource("6_a8y0u")
+
+[node name="Button" type="TextureButton" parent="UI/Controller"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+texture_normal = ExtResource("8_jbj1t")
+texture_pressed = ExtResource("9_muem4")
+texture_hover = ExtResource("8_jbj1t")
 
 [node name="FloatingGenerator" parent="." instance=ExtResource("4_choun")]
 
@@ -180,5 +193,4 @@ script = ExtResource("9_choun")
 shape = SubResource("WorldBoundaryShape2D_tipki")
 
 [connection signal="game_start" from="UI" to="FloatingGenerator" method="start_generation"]
-[connection signal="gui_input" from="UI/Screen" to="UI" method="_on_screen_gui_input"]
 [connection signal="body_entered" from="Wall" to="Wall" method="_on_body_entered"]

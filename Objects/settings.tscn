@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://c47jrwh11hdy0"]
+
+[ext_resource type="Texture2D" uid="uid://b1srpuky2701i" path="res://textures/ui/gauge.png" id="1_uxtcc"]
+
+[node name="Settings" type="ColorRect"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 180.0
+grow_horizontal = 2
+color = Color(0.290196, 0.356863, 0.278431, 1)
+
+[node name="EffectSound" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 78.0
+offset_bottom = 78.0
+value = 75.0
+rounded = true
+fill_mode = 4
+radial_initial_angle = 225.0
+texture_progress = ExtResource("1_uxtcc")

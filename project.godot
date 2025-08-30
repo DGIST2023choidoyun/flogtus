@@ -45,10 +45,10 @@ gdscript/warnings/confusable_local_usage=2
 
 window/size/viewport_width=180
 window/size/viewport_height=320
-window/size/resizable=false
 window/size/window_width_override=720
 window/size/window_height_override=1280
 window/stretch/mode="canvas_items"
+window/stretch/aspect="keep_height"
 window/handheld/orientation=1
 
 [file_customization]

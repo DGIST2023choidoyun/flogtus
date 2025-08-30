@@ -30,8 +30,6 @@ func animate(type: String, speed: float = 1.0) -> void:
 			get_parent().rotation = 0
 			get_parent().z_index = -1
 			self.play(&"drown")
-			
-			%SplashSound.play()
 		"ready":
 			if self.animation == &"idle" or self.animation == &"land":
 				self.play(&"ready")

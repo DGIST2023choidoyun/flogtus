@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://j0ic2piyq7ay"]
+[gd_scene load_steps=32 format=3 uid="uid://j0ic2piyq7ay"]
 
 [ext_resource type="Script" uid="uid://b6v7bg41x50l0" path="res://scripts/frog/frog.gd" id="1_vwpa2"]
 [ext_resource type="Texture2D" uid="uid://btblagbovi5om" path="res://textures/frog/frog_drown.png" id="2_ixa5d"]
@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://bhb8soywdyhou" path="res://textures/ui/trajectory.png" id="4_gf1tt"]
 [ext_resource type="Texture2D" uid="uid://ck87s82f0nkfc" path="res://textures/frog/frog_croak.png" id="5_3kgtr"]
 [ext_resource type="AudioStream" uid="uid://dipucm2iigyk4" path="res://sounds/frog_croak.mp3" id="5_giiu1"]
-[ext_resource type="AudioStream" uid="uid://vow0nob6cauo" path="res://sounds/splash.mp3" id="6_giiu1"]
 [ext_resource type="Texture2D" uid="uid://beovl7p3p131p" path="res://textures/ui/land_point.png" id="7_1lrn2"]
 [ext_resource type="Texture2D" uid="uid://bey7oflclj1vg" path="res://textures/frog/frog_walk.png" id="7_2v6g3"]
 [ext_resource type="Script" uid="uid://dnc54nkh3nugd" path="res://scripts/frog/land_point.gd" id="7_giiu1"]
@@ -226,7 +225,7 @@ region_rect = Rect2(0, 0, 8, 0)
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_vwpa2")
-animation = &"idle"
+animation = &"land"
 autoplay = "idle"
 script = ExtResource("3_506uw")
 
@@ -261,12 +260,6 @@ bus = &"Effect"
 unique_name_in_owner = true
 stream = ExtResource("5_giiu1")
 volume_db = 15.0
-bus = &"Effect"
-
-[node name="SplashSound" type="AudioStreamPlayer2D" parent="."]
-unique_name_in_owner = true
-stream = ExtResource("6_giiu1")
-volume_db = 2.0
 bus = &"Effect"
 
 [node name="Wave" parent="." instance=ExtResource("9_mp1wj")]

@@ -20,3 +20,4 @@ func _draw() -> void:
 func splash() -> void:
 	reparent(get_tree().current_scene)
 	self.show()
+	$SplashSound.play()
