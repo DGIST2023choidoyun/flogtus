@@ -5,13 +5,14 @@ enum { LOTUS_LEAF, LOTUS_FLOWER }
 static func count() -> int:
 	return Counter.how_many(&"Floating")
 	
-func _flow() -> void:
+func flow() -> void:
 	self.gravity_scale = 0.0
 	self.linear_damp = 0.0
 	self.linear_velocity.y = River.flow_speed
 	
 func _enter_tree() -> void:
-	_flow()
+	super()
+	flow()
 	self.rotation = randf() * TAU
 
 	'''화면에서 벗어나면 삭제, notifier가 회전효과로 엉뚱하게 감지되지 않게 처리'''

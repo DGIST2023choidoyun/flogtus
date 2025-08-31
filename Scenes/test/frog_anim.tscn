@@ -1,13 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://w1q7bc26bsqu"]
+[gd_scene load_steps=9 format=3 uid="uid://w1q7bc26bsqu"]
 
 [ext_resource type="Script" uid="uid://bat4484aqs1jc" path="res://scripts/test/frog_anim.gd" id="1_hbjet"]
 [ext_resource type="Script" uid="uid://b35sq3ul3j1n5" path="res://scripts/platform/lotus_leaf.gd" id="1_thpfy"]
 [ext_resource type="Texture2D" uid="uid://c4yofcght6nqb" path="res://textures/platforms/floatings/lotus_leaf_large.png" id="2_hbjet"]
 [ext_resource type="PackedScene" uid="uid://j0ic2piyq7ay" path="res://objects/frog.tscn" id="4_m50gp"]
 [ext_resource type="Script" uid="uid://ds5jps78objwv" path="res://scripts/test/edge_peek.gd" id="5_x8ot2"]
+[ext_resource type="Shader" uid="uid://c0x7jbltaheqe" path="res://shaders/test/frog_anim.gdshader" id="6_x8ot2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m50gp"]
 radius = 30.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4unp3"]
+shader = ExtResource("6_x8ot2")
+shader_parameter/tol = 0.01
 
 [node name="FrogAnim" type="Node"]
 script = ExtResource("1_hbjet")
@@ -75,3 +80,12 @@ render_target_update_mode = 0
 [node name="PeekCam" type="Camera2D" parent="CanvasLayer/EdgePeek/SubViewportContainer/SubViewport"]
 texture_filter = 1
 position = Vector2(-88, 0)
+
+[node name="Control" type="Control" parent="."]
+material = SubResource("ShaderMaterial_4unp3")
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

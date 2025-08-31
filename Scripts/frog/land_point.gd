@@ -11,6 +11,9 @@ func _ready() -> void:
 	
 	self.scale = Vector2.ONE * init_scale
 	self.hide()
+	
+	OrderingHook.assign_order($Sprite as Sprite2D, OrderingHook.LAND_POINT)
+	OrderingHook.assign_order($Trajectory as Sprite2D, OrderingHook.LAND_POINT_TRAJ)
 
 func _process(_delta: float) -> void:
 	var charged: float = Frog.charge_full - %ChargeTimer.time_left

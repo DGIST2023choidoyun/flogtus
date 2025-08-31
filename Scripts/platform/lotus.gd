@@ -6,7 +6,7 @@ static func count() -> int:
 var avel: float = 0.0 # 각속도
 
 func _ready() -> void:
-	AngularHook.new(self)
+	AngularHook.assign_avel(self)
 
 func landed(_frog: Frog) -> void:
 	var tween := create_tween()

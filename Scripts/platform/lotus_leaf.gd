@@ -18,19 +18,7 @@ func _ready() -> void:
 		return
 	
 	var size: int = _rand_size()
-	$Shape.shape.radius = size
-	
-	match size:
-		SIZE.TINI:
-			$Sprite.texture = load("res://textures/platforms/floatings/lotus_leaf_tini.png")
-		SIZE.SMALL:
-			$Sprite.texture = load("res://textures/platforms/floatings/lotus_leaf_small.png")
-		SIZE.MEDIUM:
-			$Sprite.texture = load("res://textures/platforms/floatings/lotus_leaf_medium.png")
-		SIZE.BIG:
-			$Sprite.texture = load("res://textures/platforms/floatings/lotus_leaf_big.png")
-		SIZE.LARGE:
-			$Sprite.texture = load("res://textures/platforms/floatings/lotus_leaf_large.png")
+	assign_size(size)
 
 static func _rand_size() -> SIZE:
 	var ratio: float = randf()
@@ -48,3 +36,18 @@ static func _rand_size() -> SIZE:
 	
 func get_space_radius() -> float:
 	return $Shape.shape.radius
+
+func assign_size(size: SIZE) -> void:
+	$Shape.shape.radius = size
+	
+	match size:
+		SIZE.TINI:
+			$Sprite.texture = load("res://textures/platforms/floatings/lotus_leaf_tini.png")
+		SIZE.SMALL:
+			$Sprite.texture = load("res://textures/platforms/floatings/lotus_leaf_small.png")
+		SIZE.MEDIUM:
+			$Sprite.texture = load("res://textures/platforms/floatings/lotus_leaf_medium.png")
+		SIZE.BIG:
+			$Sprite.texture = load("res://textures/platforms/floatings/lotus_leaf_big.png")
+		SIZE.LARGE:
+			$Sprite.texture = load("res://textures/platforms/floatings/lotus_leaf_large.png")

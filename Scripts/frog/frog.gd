@@ -71,6 +71,8 @@ func _ready() -> void:
 	LeapServer.connect_frog(self)
 	set_process(false)
 	
+	OrderingHook.assign_order(self, OrderingHook.FROG)
+	
 	if instance != null:
 		queue_free()
 	else:
@@ -132,3 +134,6 @@ func _check_floor() -> Platform:
 func game_over() -> void:
 	$Wave.splash()
 	#Data.frog_die()
+
+func make_controllable() -> void:
+	$CanvasLayer/TouchControl.show()

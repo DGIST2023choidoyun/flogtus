@@ -19,3 +19,6 @@ func landed(_frog: Frog) -> void:
 
 func takeoff(_frog: Frog) -> void:
 	pass
+
+func _enter_tree() -> void:
+	OrderingHook.assign_order(self, OrderingHook.PLATFORM)

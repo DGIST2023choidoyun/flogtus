@@ -10,8 +10,6 @@ const _floating_scenes: Array[PackedScene] = [
 	preload("res://objects/lotus_flower.tscn")
 ]
 var _lowest_anchor: Anchor = Anchor.new(Vector2.DOWN * Utility.world_y, 0.0, null)
-#var _zero_vel: float = River.flow_speed * 4
-var _vel_postive_y_thres: float = River.flow_speed * 8 / 100
 
 var min_gap: float = 20.0
 var max_gap: float = Frog.max_dist - min_gap * 2
@@ -20,10 +18,8 @@ var mutant_rate: float = 0.1 # 난이도 param
 var _gen_prob: Array[float] = []
 var _seeds: Array[Anchor] = []
 
-var _no_frog: bool = true
-
 func _ready() -> void:
-	SingletonHook.new(self)
+	SingletonHook.sure_only_one_load(self)
 
 	for i in _ratio.size(): # 누적 확률
 		_gen_prob.append(_ratio[i] + (_gen_prob[i - 1] if i > 0 else 0.0))
@@ -33,14 +29,13 @@ func _ready() -> void:
 
 func _initialize() -> void:
 	_seeds.clear()
-	_no_frog = true
 	$Tick.stop()
 	
 func start_generation() -> void:
 	$Tick.start()
 
 func generate() -> void:
-	var test_msec = Time.get_ticks_msec()
+	#var test_msec = Time.get_ticks_msec()
 	if Floating.count() >= max_cnt:
 		return
 	if _seeds.is_empty():
@@ -89,15 +84,9 @@ func generate() -> void:
 				new_floating.position = candidate_pos
 				new_floating.show()
 				
-				if _no_frog:
-					var frog: Frog = load("res://objects/frog.tscn").instantiate() as Frog
-					new_floating.add_child(frog)
-					frog.position = Vector2.ZERO
-					
-					_no_frog = false
 				break
 	
-	prints("msec", Time.get_ticks_msec() - test_msec)
+	#prints("msec", Time.get_ticks_msec() - test_msec)
 	
 func _rand_type() -> int:
 	var r: float = randf()

@@ -1,7 +1,5 @@
 extends CanvasLayer
 
-signal game_start()
-
 func _ready() -> void:
 	#if Data.is_first:
 		#$Screen.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -14,11 +12,7 @@ func _ready() -> void:
 				#Data.is_first = false
 				#$Screen.mouse_filter = Control.MOUSE_FILTER_STOP
 		#)
-	pass
-
-func _on_screen_gui_input(event: InputEvent) -> void:
-	if event is InputEventScreenTouch:
-		if not event.pressed:
-			$Score.show()
-			$Screen.hide()
-			game_start.emit()
+	Data.add_listener("score_changed", 
+		func(val: int) -> void:
+			$Score.text = str(val)
+	)

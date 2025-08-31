@@ -1,9 +1,10 @@
-[gd_scene load_steps=25 format=3 uid="uid://bn1m4wpx3mgob"]
+[gd_scene load_steps=29 format=3 uid="uid://bn1m4wpx3mgob"]
 
 [ext_resource type="Script" uid="uid://xb8ryj8o3lqo" path="res://scripts/setup.gd" id="1_85g3d"]
 [ext_resource type="FontFile" uid="uid://c5pkff1ivm3k8" path="res://fonts/Gamer.ttf" id="2_choun"]
 [ext_resource type="Script" uid="uid://c5sxv6ms4abix" path="res://scripts/ui.gd" id="2_ya4ey"]
 [ext_resource type="PackedScene" uid="uid://cev0ied4dgnpk" path="res://objects/floating_generator.tscn" id="4_choun"]
+[ext_resource type="Script" uid="uid://3vuw7r43eh3w" path="res://scripts/controller.gd" id="4_jkv2x"]
 [ext_resource type="Texture2D" uid="uid://cvu4rscps6hnv" path="res://textures/ui/btn_setting_up.png" id="4_ya4ey"]
 [ext_resource type="Texture2D" uid="uid://bru0c0nlwfu32" path="res://textures/ui/btn_setting_down.png" id="5_eb6dy"]
 [ext_resource type="Texture2D" uid="uid://bm76tnpwbani7" path="res://textures/waterfall.png" id="5_o6xl0"]
@@ -14,6 +15,9 @@
 [ext_resource type="AudioStream" uid="uid://kidvjeec45e6" path="res://sounds/frog_env.mp3" id="9_85g3d"]
 [ext_resource type="Script" uid="uid://c7cfu75o3cfs7" path="res://scripts/wall.gd" id="9_choun"]
 [ext_resource type="Texture2D" uid="uid://721rebhvsso0" path="res://textures/ui/btn_down.png" id="9_muem4"]
+[ext_resource type="Script" uid="uid://bhm243d7bp0mv" path="res://scripts/game_set_manager.gd" id="11_0ld40"]
+[ext_resource type="Script" uid="uid://cwje0pdmihw46" path="res://scripts/camera.gd" id="13_dp3eg"]
+[ext_resource type="Script" uid="uid://c2cbfqoyhymnk" path="res://scripts/waterfall.gd" id="14_muem4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o6xl0"]
 atlas = ExtResource("5_o6xl0")
@@ -95,7 +99,7 @@ offset_right = 48.0
 offset_bottom = 19.0
 theme_override_colors/font_color = Color(1, 0.992157, 0.976471, 1)
 theme_override_colors/font_outline_color = Color(0.290196, 0.356863, 0.278431, 1)
-theme_override_constants/outline_size = 4
+theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("2_choun")
 theme_override_font_sizes/font_size = 24
 text = "0"
@@ -108,12 +112,14 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -64.5
-offset_top = -75.0
+offset_top = -107.0
 offset_right = 64.5
-offset_bottom = -37.0
+offset_bottom = -69.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1, 0.992157, 0.976471, 1)
+theme_override_colors/font_outline_color = Color(0.290196, 0.356863, 0.278431, 1)
+theme_override_constants/outline_size = 16
 theme_override_fonts/font = ExtResource("2_choun")
 theme_override_font_sizes/font_size = 48
 text = "FLOGTUS"
@@ -127,8 +133,10 @@ anchor_bottom = 1.0
 offset_top = -48.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_filter = 2
 theme_override_constants/separation = 12
 alignment = 1
+script = ExtResource("4_jkv2x")
 
 [node name="SettingButton" type="TextureButton" parent="UI/Controller"]
 custom_minimum_size = Vector2(36, 36)
@@ -152,13 +160,25 @@ texture_normal = ExtResource("8_jbj1t")
 texture_pressed = ExtResource("9_muem4")
 texture_hover = ExtResource("8_jbj1t")
 
+[node name="GameSetManager" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("11_0ld40")
+
 [node name="FloatingGenerator" parent="." instance=ExtResource("4_choun")]
 
+[node name="Camera" type="Camera2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(90, 160)
+zoom = Vector2(3.6, 3.6)
+script = ExtResource("13_dp3eg")
+
 [node name="Waterfall" type="AnimatedSprite2D" parent="."]
+z_index = -5
 position = Vector2(90, 312)
 sprite_frames = SubResource("SpriteFrames_6bp64")
 autoplay = "default"
 frame_progress = 0.522037
+script = ExtResource("14_muem4")
 
 [node name="Sound" type="AudioStreamPlayer2D" parent="Waterfall"]
 stream = ExtResource("8_choun")
@@ -192,5 +212,10 @@ script = ExtResource("9_choun")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
 shape = SubResource("WorldBoundaryShape2D_tipki")
 
-[connection signal="game_start" from="UI" to="FloatingGenerator" method="start_generation"]
+[connection signal="button_up" from="UI/Controller/PlayButton" to="GameSetManager" method="game_start"]
+[connection signal="game_inited" from="GameSetManager" to="Camera" method="initialize"]
+[connection signal="game_started" from="GameSetManager" to="UI/Score" method="show"]
+[connection signal="game_started" from="GameSetManager" to="UI/Title" method="hide"]
+[connection signal="game_started" from="GameSetManager" to="FloatingGenerator" method="start_generation"]
+[connection signal="game_started" from="GameSetManager" to="Camera" method="zoom_out"]
 [connection signal="body_entered" from="Wall" to="Wall" method="_on_body_entered"]
