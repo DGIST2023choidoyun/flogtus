@@ -8,8 +8,6 @@ func _on_frame_changed() -> void:
 
 func _on_animation_finished() -> void:
 	match self.animation:
-		#&"jump":
-			#landed.emit()
 		&"drown":
 			Frog.instance.queue_free()
 		&"land":
@@ -40,3 +38,5 @@ func animate(type: String, speed: float = 1.0) -> void:
 			self.play(&"walk")
 			self.scale.x = 1 if walk_frame % 2 == 0 else -1
 			walk_frame += 1
+		"sleep":
+			self.play(&"sleep") # TODO: 애니메이션 만들어야 됨

@@ -1,6 +1,6 @@
 class_name Frog extends Area2D
 
-enum STATE { NONE = -1, LANDED, WALKED, JUMPED, DROWNED, CNT }
+enum STATE { NONE = -1, LANDED, WALKED, JUMPED, DROWNED, SLEPT, CNT }
 var state: STATE = STATE.NONE
 
 const max_dist: float = 100.0
@@ -59,6 +59,11 @@ func _state(value: STATE) -> void:
 			$Sprite.animate("drown")
 			
 			game_over()
+		STATE.SLEPT:
+			if state != STATE.LANDED and state != STATE.WALKED:
+				return
+			
+			$Sprite.animate("sleep")
 		STATE.CNT, STATE.NONE:
 			return
 	state = value
@@ -80,6 +85,7 @@ func _ready() -> void:
 	
 	await get_tree().physics_frame
 	step()
+	_state(STATE.SLEPT)
 
 func _input(_event: InputEvent) -> void:
 	if state != STATE.LANDED and state != STATE.WALKED:

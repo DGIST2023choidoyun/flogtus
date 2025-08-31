@@ -221,8 +221,9 @@ region_enabled = true
 region_rect = Rect2(0, 0, 8, 0)
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
+z_index = 5
 sprite_frames = SubResource("SpriteFrames_vwpa2")
-animation = &"land"
+animation = &"idle"
 autoplay = "idle"
 script = ExtResource("3_506uw")
 

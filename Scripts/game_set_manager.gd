@@ -12,6 +12,7 @@ func _ready() -> void:
 func initialize() -> void:
 	main_floating = load("res://objects/lotus_leaf.tscn").instantiate() as LotusLeaf
 	var frog: Frog = load("res://objects/frog.tscn").instantiate()
+	main_floating.no_slosh = true
 	
 	await get_tree().process_frame
 	
@@ -24,7 +25,8 @@ func initialize() -> void:
 	main_floating.rotation = 0
 	main_floating.global_position = Utility.world_center + Vector2.UP * 6
 	
-	frog.position = Vector2.ZERO
+	frog.position = Vector2.ZERO + Vector2.DOWN * 3
+	frog.rotation = PI
 	
 	game_inited.emit()
 
