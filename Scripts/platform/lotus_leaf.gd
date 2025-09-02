@@ -1,7 +1,4 @@
 class_name LotusLeaf extends Lotus
-
-static func count() -> int:
-	return Counter.how_many(&"LotusLeaf")
 	
 enum SIZE { TINI = 10, SMALL = 15, MEDIUM = 20, BIG = 25, LARGE = 30 }
 @export var auto_sizing: bool = true

@@ -4,20 +4,32 @@ var no_slosh: bool = false
 
 enum { LOTUS_LEAF, LOTUS_FLOWER }
 
-static func count() -> int:
-	return Counter.how_many(&"Floating")
-	
+static var all_freeze: bool = false:
+	set(v):
+		all_freeze = v
+		if v:
+			for floating: Floating in Counter.what(&"Floating"):
+				floating.linear_velocity.y = 0.0
+		else:
+			for floating: Floating in Counter.what(&"Floating"):
+				floating.flow()
+static func freeze() -> void:
+	all_freeze = true
+static func unfreeze() -> void:
+	all_freeze = false
+
 func flow() -> void:
-	self.gravity_scale = 0.0
-	self.linear_damp = 0.0
 	self.linear_velocity.y = River.flow_speed
 
 func _ready() -> void:
 	AngularHook.assign_avel(self)
+	self.gravity_scale = 0.0
+	self.linear_damp = 0.0
 
 func _enter_tree() -> void:
 	super()
-	flow()
+	if not all_freeze:
+		flow()
 	self.rotation = randf() * TAU
 
 	'''화면에서 벗어나면 삭제, notifier가 회전효과로 엉뚱하게 감지되지 않게 처리'''

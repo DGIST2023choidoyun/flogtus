@@ -23,18 +23,20 @@ func _state(value: STATE) -> void:
 			$Sprite.animate("walk")
 		STATE.LANDED:
 			'''물리 위치 변경'''
-			if state != STATE.JUMPED and state != STATE.LANDED:
+			if state != STATE.JUMPED and state != STATE.LANDED and state != STATE.SLEPT:
 				return
-			
-			var local_pos: Vector2 = platform.to_local(self.global_position)
-			var glob_rot: float = self.global_rotation
-			self.reparent(platform, false)
-			self.position = local_pos
-			self.global_rotation = glob_rot
-			
-			$Sprite.animate("land")
-			
-			self.monitoring = true
+			if state == STATE.SLEPT:
+				$Sprite.animate("wake_up")
+			else:
+				var local_pos: Vector2 = platform.to_local(self.global_position)
+				var glob_rot: float = self.global_rotation
+				self.reparent(platform, false)
+				self.position = local_pos
+				self.global_rotation = glob_rot
+				
+				$Sprite.animate("land")
+				
+				self.monitoring = true
 		STATE.JUMPED:
 			'''점프 애니메이션 설정'''
 			if state != STATE.LANDED and state != STATE.WALKED and not is_ready:
@@ -108,7 +110,7 @@ func _input(_event: InputEvent) -> void:
 		_state(STATE.JUMPED)
 		
 
-func step() -> void:
+func step() -> void: # TODO: 리팩토링
 	var pad: Platform = _check_floor()
 	if pad == null:
 		drown.call_deferred()
@@ -124,7 +126,10 @@ func step() -> void:
 func drown() -> void:
 	_state(STATE.DROWNED)
 
-func _check_floor() -> Platform:
+func wake_up() -> void:
+	_state(STATE.LANDED)
+
+func _check_floor() -> Platform: # TODO: 리팩토링
 	var dss: PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
 	var qp: PhysicsShapeQueryParameters2D = PhysicsShapeQueryParameters2D.new()
 	qp.shape = $Shape.shape

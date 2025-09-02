@@ -10,7 +10,9 @@ func _ready() -> void:
 	initialize()
 
 func initialize() -> void:
-	main_floating = load("res://objects/lotus_leaf.tscn").instantiate() as LotusLeaf
+	Floating.freeze()
+	
+	main_floating = load("res://objects/lotus_leaf.tscn").instantiate()
 	var frog: Frog = load("res://objects/frog.tscn").instantiate()
 	main_floating.no_slosh = true
 	
@@ -21,7 +23,6 @@ func initialize() -> void:
 	
 	main_floating.assign_size(LotusLeaf.SIZE.LARGE)
 	main_floating.angular_velocity = 0
-	main_floating.linear_velocity.y = 0
 	main_floating.rotation = 0
 	main_floating.global_position = Utility.world_center + Vector2.UP * 6
 	
@@ -29,12 +30,22 @@ func initialize() -> void:
 	frog.rotation = PI
 	
 	game_inited.emit()
+	
+	var hard_seed: Array[Dock] = [Dock.new(Vector2(0, Utility.world_y + 20), 0.0, null)]
+	var restrain: Array[Dock] = [Dock.make_from(main_floating)]
+	
+	
+	%FloatingGenerator.generate(hard_seed, restrain, true, Rect2(0, -1000, Utility.world_x, Utility.world_y + 1010))
 
 func game_start() -> void:
 	AngularHook.assign_avel(main_floating)
+	#main_floating.flow()
+	Floating.unfreeze()
+	
+	Frog.instance.wake_up()
+	
 	game_started.emit()
 	
 	await %Camera.zoomed_out
 	
-	main_floating.flow()
 	Frog.instance.make_controllable()

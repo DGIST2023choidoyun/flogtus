@@ -165,16 +165,19 @@ unique_name_in_owner = true
 script = ExtResource("11_0ld40")
 
 [node name="FloatingGenerator" parent="." instance=ExtResource("4_choun")]
+unique_name_in_owner = true
 
 [node name="Camera" type="Camera2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(90, 160)
-zoom = Vector2(3.6, 3.6)
+zoom = Vector2(4, 4)
 script = ExtResource("13_dp3eg")
 
 [node name="Waterfall" type="AnimatedSprite2D" parent="."]
 z_index = -5
+texture_repeat = 2
 position = Vector2(90, 312)
+scale = Vector2(2, 1)
 sprite_frames = SubResource("SpriteFrames_6bp64")
 autoplay = "default"
 frame_progress = 0.522037
@@ -216,6 +219,7 @@ shape = SubResource("WorldBoundaryShape2D_tipki")
 [connection signal="game_inited" from="GameSetManager" to="Camera" method="initialize"]
 [connection signal="game_started" from="GameSetManager" to="UI/Score" method="show"]
 [connection signal="game_started" from="GameSetManager" to="UI/Title" method="hide"]
+[connection signal="game_started" from="GameSetManager" to="UI/Controller" method="show_down"]
 [connection signal="game_started" from="GameSetManager" to="FloatingGenerator" method="start_generation"]
 [connection signal="game_started" from="GameSetManager" to="Camera" method="zoom_out"]
 [connection signal="body_entered" from="Wall" to="Wall" method="_on_body_entered"]

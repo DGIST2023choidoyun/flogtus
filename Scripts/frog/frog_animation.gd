@@ -18,25 +18,29 @@ func _on_animation_finished() -> void:
 			self.play(&"idle")
 
 func animate(type: String, speed: float = 1.0) -> void:
+	var do_animate: bool = false
+	
 	self.speed_scale = speed
 	match type:
 		"jump":
 			if %LandPoint.is_real_jump:
-				self.play(&"jump")
 				%JumpSound.play()
+				do_animate = true
 		"drown":
 			get_parent().rotation = 0
 			get_parent().z_index = -1
-			self.play(&"drown")
+			do_animate = true
 		"ready":
 			if self.animation == &"idle" or self.animation == &"land":
-				self.play(&"ready")
+				do_animate = true
 				walk_frame = 0
-		"land":
-			self.play(&"land")
+		
 		"walk":
-			self.play(&"walk")
 			self.scale.x = 1 if walk_frame % 2 == 0 else -1
 			walk_frame += 1
-		"sleep":
-			self.play(&"sleep") # TODO: 애니메이션 만들어야 됨
+			do_animate = true
+		"land", "sleep", "wake_up":
+			do_animate = true
+	
+	if do_animate:
+		self.play(StringName(type))

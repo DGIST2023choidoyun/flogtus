@@ -9,14 +9,14 @@ const _floating_scenes: Array[PackedScene] = [
 	preload("res://objects/lotus_leaf.tscn"),
 	preload("res://objects/lotus_flower.tscn")
 ]
-var _lowest_anchor: Anchor = Anchor.new(Vector2.DOWN * Utility.world_y, 0.0, null)
+var _lowest_dock: Dock = Dock.new(Vector2.DOWN * Utility.world_y, 0.0, null)
 
 var min_gap: float = 20.0
 var max_gap: float = Frog.max_dist - min_gap * 2
 var mutant_rate: float = 0.1 # 난이도 param
 
 var _gen_prob: Array[float] = []
-var _seeds: Array[Anchor] = []
+var _seeds: Array[Dock] = []
 
 func _ready() -> void:
 	SingletonHook.sure_only_one_load(self)
@@ -34,51 +34,57 @@ func _initialize() -> void:
 func start_generation() -> void:
 	$Tick.start()
 
-func generate() -> void:
+func generate(hard_seeds: Array[Dock] = [], restrains: Array[Dock] = [], explode: bool = false, constraint: Rect2 = Rect2(0, -1000, Utility.world_x, 1000)) -> void:
 	#var test_msec = Time.get_ticks_msec()
-	if Floating.count() >= max_cnt:
+	if Counter.how_many(&"Floating") >= max_cnt:
 		return
+		
+	if len(hard_seeds) > 0:
+		_seeds = hard_seeds
+	
 	if _seeds.is_empty():
-		_seeds.append(Anchor.new(Vector2(randf() * Utility.world_x, -screen_padding), 0, null))
+		_seeds.append(Dock.new(Vector2(randf() * Utility.world_x, -screen_padding), 0, null))
 	else:
 		_update_seeds()
-	var active_list: Array[Anchor] = [_seeds[0]] # 생성 기준점이 될 수 있는 앵커 집합, 처음에는 가장 상위의 앵커만
-	var restrain_list: Array[Anchor] = _seeds.duplicate() # 거리 조건 검사를 위한 앵커 집합
-	var highest_anchor: Anchor = _lowest_anchor
+	var active_list: Array[Dock] = [_seeds[0]] # 생성 기준점이 될 수 있는 앵커 집합, 처음에는 가장 상위의 앵커만
+	var restrain_list: Array[Dock] = _seeds.duplicate() # 거리 조건 검사를 위한 앵커 집합
+	var highest_dock: Dock = _lowest_dock
+	
+	restrain_list.append_array(restrains)
+	active_list.append_array(restrains)
 
 	_seeds.clear()
-	for _i in _cnt_per_tick: # 한 틱에 생성 개수 고정
+	for _i in _cnt_per_tick if not explode else max_cnt: # 한 틱에 생성 개수 고정
 		var new_floating: Floating = _gen_floating()
 		var new_size: float = new_floating.get_space_radius()
 		if new_floating == null:
 			continue
 		
 		while true: # 위치 탐색
-			var norm: Anchor = active_list.pick_random()
+			var norm: Dock = active_list.pick_random()
 			var dir: Vector2 = _get_dir()
 			var candidate_pos: Vector2 = norm.disk.pos + dir * (norm.disk.radius + new_size + randf_range(min_gap, max_gap))
-
-			if candidate_pos.y + new_size > 0 or candidate_pos.x < 0 or candidate_pos.x > Utility.world_x:
-				continue # 화면 안쪽 또는 화면 가로 밖이면 다시 시도
-
 			var is_valid: bool = true
 			var candidate_disk: Disk = Disk.new(candidate_pos, new_size) # 거리 비교 위한 디스크 생성
+			
+			if _constraint_test(candidate_disk, constraint):
+				continue # 화면 안쪽 또는 화면 가로 밖이면 다시 시도
 
-			for anchor: Anchor in restrain_list:
-				if Disk.gap(candidate_disk, anchor.disk) < min_gap:
+			for dock: Dock in restrain_list:
+				if Disk.gap(candidate_disk, dock.disk) < min_gap:
 					is_valid = false
 					continue
 			
 			if is_valid:
-				var new_anchor: Anchor = Anchor.new(candidate_pos, new_size, new_floating)
-				active_list.append(new_anchor)
-				restrain_list.append(new_anchor)
+				var new_dock: Dock = Dock.new(candidate_pos, new_size, new_floating)
+				active_list.append(new_dock)
+				restrain_list.append(new_dock)
 				
-				if highest_anchor.disk.pos.y - highest_anchor.disk.radius > new_anchor.disk.pos.y - new_anchor.disk.radius:
-					highest_anchor = new_anchor
-					_seeds.push_front(new_anchor) # 결국 가장 위에 있는 앵커가 0 index임.
+				if highest_dock.disk.pos.y - highest_dock.disk.radius > new_dock.disk.pos.y - new_dock.disk.radius:
+					highest_dock = new_dock
+					_seeds.push_front(new_dock) # 결국 가장 위에 있는 앵커가 0 index임.
 				else:
-					_seeds.push_back(new_anchor)
+					_seeds.push_back(new_dock)
 
 				# floating 활성화
 				new_floating.position = candidate_pos
@@ -87,7 +93,7 @@ func generate() -> void:
 				break
 	
 	#prints("msec", Time.get_ticks_msec() - test_msec)
-	
+
 func _rand_type() -> int:
 	var r: float = randf()
 	for i in _gen_prob.size():
@@ -106,10 +112,15 @@ func _gen_floating() -> Floating:
 	return floating
 
 func _update_seeds() -> void:
-	for anchor in _seeds:
-		anchor.update()
+	for dock in _seeds:
+		dock.update()
 
 func _get_dir() -> Vector2:
 	if randf() < mutant_rate:
 		return Vector2.RIGHT.rotated(randf_range(PI, PI * 2))
 	return Vector2.RIGHT.rotated(randf_range(-_30_deg, 0) + (_30_deg + PI) * (randi() % 2))
+
+func _constraint_test(disk: Disk, constraint: Rect2) -> bool:
+	if constraint.grow(-disk.radius).has_point(disk.pos):
+		return false
+	return true

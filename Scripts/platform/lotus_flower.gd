@@ -1,8 +1,5 @@
 class_name LotusFlower extends Lotus
 
-static func count() -> int:
-	return Counter.how_many(&"LotusFlower")
-
 const size: int = 15
 
 var unbloom_y: float

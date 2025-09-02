@@ -18,7 +18,7 @@ shader_parameter/tol = 0.01
 script = ExtResource("1_hbjet")
 
 [node name="LotusLeaf" type="RigidBody2D" parent="."]
-position = Vector2(6, 110)
+position = Vector2(94, 110)
 script = ExtResource("1_thpfy")
 auto_sizing = false
 metadata/_custom_type_script = "uid://b35sq3ul3j1n5"
@@ -32,7 +32,7 @@ shape = SubResource("CircleShape2D_m50gp")
 [node name="Frog" parent="LotusLeaf" instance=ExtResource("4_m50gp")]
 
 [node name="LotusLeaf2" type="RigidBody2D" parent="."]
-position = Vector2(6, 210)
+position = Vector2(94, 210)
 script = ExtResource("1_thpfy")
 auto_sizing = false
 metadata/_custom_type_script = "uid://b35sq3ul3j1n5"
