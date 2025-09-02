@@ -2,7 +2,7 @@ class_name Floating extends Platform
 
 var no_slosh: bool = false
 
-enum { LOTUS_LEAF, LOTUS_FLOWER }
+enum { LOTUS_LEAF = 0, LOTUS_FLOWER }
 
 static var all_freeze: bool = false:
 	set(v):

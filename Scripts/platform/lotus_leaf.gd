@@ -34,10 +34,10 @@ static func _rand_size() -> SIZE:
 func get_space_radius() -> float:
 	return $Shape.shape.radius
 
-func assign_size(size: SIZE) -> void:
-	$Shape.shape.radius = size
+func assign_size(size: float) -> void:
+	$Shape.shape.radius = floor(size)
 	
-	match size:
+	match int(size):
 		SIZE.TINI:
 			$Sprite.texture = load("res://textures/platforms/floatings/lotus_leaf_tini.png")
 		SIZE.SMALL:

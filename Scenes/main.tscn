@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bn1m4wpx3mgob"]
+[gd_scene load_steps=31 format=3 uid="uid://bn1m4wpx3mgob"]
 
 [ext_resource type="Script" uid="uid://xb8ryj8o3lqo" path="res://scripts/setup.gd" id="1_85g3d"]
 [ext_resource type="FontFile" uid="uid://c5pkff1ivm3k8" path="res://fonts/Gamer.ttf" id="2_choun"]
@@ -17,7 +17,9 @@
 [ext_resource type="Texture2D" uid="uid://721rebhvsso0" path="res://textures/ui/btn_down.png" id="9_muem4"]
 [ext_resource type="Script" uid="uid://bhm243d7bp0mv" path="res://scripts/game_set_manager.gd" id="11_0ld40"]
 [ext_resource type="Script" uid="uid://cwje0pdmihw46" path="res://scripts/camera.gd" id="13_dp3eg"]
+[ext_resource type="Script" uid="uid://bkrtrl0dxef0e" path="res://scripts/camera_manager.gd" id="13_gqmmt"]
 [ext_resource type="Script" uid="uid://c2cbfqoyhymnk" path="res://scripts/waterfall.gd" id="14_muem4"]
+[ext_resource type="PackedScene" uid="uid://j0ic2piyq7ay" path="res://objects/frog.tscn" id="19_0ld40"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o6xl0"]
 atlas = ExtResource("5_o6xl0")
@@ -160,18 +162,24 @@ texture_normal = ExtResource("8_jbj1t")
 texture_pressed = ExtResource("9_muem4")
 texture_hover = ExtResource("8_jbj1t")
 
+[node name="Frog" parent="." instance=ExtResource("19_0ld40")]
+
 [node name="GameSetManager" type="Node2D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("11_0ld40")
 
-[node name="FloatingGenerator" parent="." instance=ExtResource("4_choun")]
+[node name="CameraManager" type="Node2D" parent="."]
 unique_name_in_owner = true
+script = ExtResource("13_gqmmt")
 
-[node name="Camera" type="Camera2D" parent="."]
-unique_name_in_owner = true
+[node name="Camera" type="Camera2D" parent="CameraManager"]
 position = Vector2(90, 160)
+ignore_rotation = false
 zoom = Vector2(4, 4)
 script = ExtResource("13_dp3eg")
+
+[node name="FloatingGenerator" parent="." instance=ExtResource("4_choun")]
+unique_name_in_owner = true
 
 [node name="Waterfall" type="AnimatedSprite2D" parent="."]
 z_index = -5
@@ -216,10 +224,10 @@ script = ExtResource("9_choun")
 shape = SubResource("WorldBoundaryShape2D_tipki")
 
 [connection signal="button_up" from="UI/Controller/PlayButton" to="GameSetManager" method="game_start"]
-[connection signal="game_inited" from="GameSetManager" to="Camera" method="initialize"]
+[connection signal="game_inited" from="GameSetManager" to="CameraManager/Camera" method="initialize"]
 [connection signal="game_started" from="GameSetManager" to="UI/Score" method="show"]
 [connection signal="game_started" from="GameSetManager" to="UI/Title" method="hide"]
 [connection signal="game_started" from="GameSetManager" to="UI/Controller" method="show_down"]
+[connection signal="game_started" from="GameSetManager" to="CameraManager/Camera" method="zoom_out"]
 [connection signal="game_started" from="GameSetManager" to="FloatingGenerator" method="start_generation"]
-[connection signal="game_started" from="GameSetManager" to="Camera" method="zoom_out"]
 [connection signal="body_entered" from="Wall" to="Wall" method="_on_body_entered"]

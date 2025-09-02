@@ -19,3 +19,6 @@ func takeoff(_frog: Frog) -> void:
 
 func _enter_tree() -> void:
 	OrderingHook.assign_order(self, OrderingHook.PLATFORM)
+
+func assign_size(_size: float) -> void:
+	pass

@@ -94,6 +94,29 @@ func generate(hard_seeds: Array[Dock] = [], restrains: Array[Dock] = [], explode
 	
 	#prints("msec", Time.get_ticks_msec() - test_msec)
 
+func generate_one_with_frog_centered(type: int = -1, size: float = -1.0, pre_pos: Vector2 = Vector2.ONE * INF, pre_rot: float = INF) -> Floating:
+	var floating: Floating = _floating_scenes[type if type >= 0 else _rand_type()].instantiate()
+	var frog: Frog = Frog.instance
+	
+	floating.no_slosh = true
+	
+	await get_tree().process_frame
+	
+	# tree
+	get_tree().current_scene.add_child(floating)
+	frog.reparent(floating)
+	
+	# transform
+	frog.position = Vector2.ZERO
+	floating.rotation = pre_rot if pre_rot != INF else randf_range(0, PI * 2)
+	floating.global_position = pre_pos if pre_pos != Vector2.ONE * INF else Vector2.ZERO
+	
+	# physics
+	if size > 0.0:
+		floating.assign_size(size)
+	
+	return floating
+
 func _rand_type() -> int:
 	var r: float = randf()
 	for i in _gen_prob.size():

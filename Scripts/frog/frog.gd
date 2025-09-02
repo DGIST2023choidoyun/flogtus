@@ -62,9 +62,8 @@ func _state(value: STATE) -> void:
 			
 			game_over()
 		STATE.SLEPT:
-			if state != STATE.LANDED and state != STATE.WALKED:
+			if state != STATE.LANDED and state != STATE.WALKED and state != STATE.NONE:
 				return
-			
 			$Sprite.animate("sleep")
 		STATE.CNT, STATE.NONE:
 			return
