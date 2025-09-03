@@ -223,6 +223,7 @@ script = ExtResource("9_choun")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
 shape = SubResource("WorldBoundaryShape2D_tipki")
 
+[connection signal="button_up" from="UI/Controller/PlayButton" to="UI/Controller" method="ignore_event"]
 [connection signal="button_up" from="UI/Controller/PlayButton" to="GameSetManager" method="game_start"]
 [connection signal="game_inited" from="GameSetManager" to="CameraManager/Camera" method="initialize"]
 [connection signal="game_started" from="GameSetManager" to="UI/Score" method="show"]

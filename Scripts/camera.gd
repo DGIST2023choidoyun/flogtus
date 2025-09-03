@@ -13,6 +13,9 @@ func initialize() -> void:
 	reparent(Frog.instance)
 
 func zoom_out() -> void:
+	#while self.global_rotation < -PI / 24 or self.global_rotation > PI * 23 / 24:
+		#await get_tree().physics_frame
+	
 	var tween: Tween = create_tween()
 	tween.tween_property(self, ^"zoom", Vector2.ONE, 1.5).set_trans(Tween.TRANS_ELASTIC) # TODO
 	tween.tween_callback(
@@ -24,3 +27,6 @@ func zoom_out() -> void:
 	retrieve_tween.parallel().tween_property(self, ^"rotation", 0, 1.0)
 	
 	reparent(get_tree().current_scene)
+
+func get_focused_node() -> Node2D:
+	return self.get_parent()

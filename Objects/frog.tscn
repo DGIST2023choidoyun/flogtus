@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://j0ic2piyq7ay"]
+[gd_scene load_steps=44 format=3 uid="uid://j0ic2piyq7ay"]
 
 [ext_resource type="Script" uid="uid://b6v7bg41x50l0" path="res://scripts/frog/frog.gd" id="1_vwpa2"]
 [ext_resource type="Texture2D" uid="uid://btblagbovi5om" path="res://textures/frog/frog_drown.png" id="2_ixa5d"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://dnc54nkh3nugd" path="res://scripts/frog/land_point.gd" id="7_giiu1"]
 [ext_resource type="Texture2D" uid="uid://cx2ucp8pslvce" path="res://textures/frog/frog_sleep.png" id="8_gf1tt"]
 [ext_resource type="PackedScene" uid="uid://cauj2ey8oqrbl" path="res://objects/wave.tscn" id="9_mp1wj"]
+[ext_resource type="Texture2D" uid="uid://2ebrbmby0v2w" path="res://textures/frog/zzz.png" id="11_dsk4o"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1s8br"]
 atlas = ExtResource("2_ixa5d")
@@ -243,6 +244,42 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ot1d5"]
+atlas = ExtResource("11_dsk4o")
+region = Rect2(0, 0, 33, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ugngy"]
+atlas = ExtResource("11_dsk4o")
+region = Rect2(33, 0, 33, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p5pfc"]
+atlas = ExtResource("11_dsk4o")
+region = Rect2(66, 0, 33, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2yedt"]
+atlas = ExtResource("11_dsk4o")
+region = Rect2(99, 0, 33, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gf1tt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ot1d5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ugngy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p5pfc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2yedt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_giiu1"]
 size = Vector2(3, 2)
 
@@ -292,6 +329,16 @@ autoplay = "idle"
 frame = 9
 frame_progress = 1.0
 script = ExtResource("3_506uw")
+
+[node name="zzz" type="AnimatedSprite2D" parent="Sprite"]
+position = Vector2(-18, 9)
+rotation = -3.14159
+sprite_frames = SubResource("SpriteFrames_gf1tt")
+
+[node name="zzzRemote" type="RemoteTransform2D" parent="Sprite"]
+position = Vector2(-18, 9)
+remote_path = NodePath("../zzz")
+update_rotation = false
 
 [node name="Shape" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)

@@ -2,6 +2,9 @@ extends AnimatedSprite2D
 
 var walk_frame: int = 0
 
+func _ready() -> void:
+	OrderingHook.assign_order($zzz, OrderingHook.FROG_PARTICLE)
+
 func _on_frame_changed() -> void:
 	if self.animation == &"idle" and self.frame == 4:
 		%CroakSound.play()
@@ -39,8 +42,13 @@ func animate(type: String, speed: float = 1.0) -> void:
 			self.scale.x = 1 if walk_frame % 2 == 0 else -1
 			walk_frame += 1
 			do_animate = true
-		"land", "sleep", "wake_up":
+		"land":
 			do_animate = true
-	
+		"sleep":
+			do_animate = true
+			$zzz.play()
+		"wake_up":
+			do_animate = true
+			$zzz.stop()
 	if do_animate:
 		self.play(StringName(type))

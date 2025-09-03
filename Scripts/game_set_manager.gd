@@ -28,13 +28,14 @@ func initialize() -> void:
 	%FloatingGenerator.generate(hard_seed, restrain, true, Rect2(0, -1000, Utility.world_x, Utility.world_y + 1010))
 
 func game_start() -> void:
-	#main_floating.flow()
+	await %CameraManager.wait_camera_rot()
+	
 	Floating.unfreeze()
 	
 	Frog.instance.wake_up()
+	Frog.instance.make_controllable() # for fast play
 	
 	game_started.emit()
 	
 	await %CameraManager.camera.zoomed_out
 	
-	Frog.instance.make_controllable()

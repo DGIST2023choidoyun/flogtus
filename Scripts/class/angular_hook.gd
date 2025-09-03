@@ -11,3 +11,6 @@ static func assign_avel(target: RigidBody2D) -> void:
 		target.angular_velocity = avel
 	else:
 		target.angular_velocity = -avel
+
+static func initialize() -> void:
+	avel = avel_default
